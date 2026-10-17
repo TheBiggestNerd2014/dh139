@@ -1262,7 +1262,8 @@
 //--Collision Triangles--
   "triangles":[
     ["id1:", "id2:", "id3:"],
-    {"dragCoef":50},
+    // Was 50, half a flat plate on every triangle. That held speed once the engine could rev.
+    {"dragCoef":25},
     {"pressureGroup":"hull"},
     {"pressure":false},
     {"groundModel":"metal"},
