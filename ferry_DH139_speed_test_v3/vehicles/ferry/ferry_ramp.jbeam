@@ -145,8 +145,10 @@
 		["id1:","id2:"],
 		// factor extends these onto the top edge. Input 1 lengthens them to 2.24x,
 		// which swings that edge forward and down. The lip stays on the hull.
+		// The spring yields if the plate meets the dock: a stiffer cylinder can
+		// lift the whole bow and the parked hull then hops.
 		{"beamPrecompression":1.0, "beamLongBound":3, "beamShortBound":0.5},
-		{"beamSpring":1500000,"beamDamp":250,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+		{"beamSpring":100000,"beamDamp":200,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
 		["ral", "frl2", {"inputSource":"ramp_lift","factor":1.237,"inRate":2,"outRate":2}],

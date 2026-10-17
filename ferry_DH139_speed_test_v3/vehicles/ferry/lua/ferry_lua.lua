@@ -28,31 +28,46 @@ local function parkingOn()
 	return false
 end
 
--- Once per frame. The physics step is the wrong place for this: a per-step
--- acceleration command stacks and the hull never actually gets zeroed.
+-- Bleed horizontal drift only. Freezing vertical speed and pitch while the
+-- ramp is down turns a bow that is trying to settle into a deck-wide hop.
+-- A velocity command through thrusters stacks every frame, so it is not used.
 local function holdFerry()
 	local pos = obj:getPosition()
-	if not pos then return end
+	local vel = obj:getVelocity()
+	if not pos or not vel then return end
 	if not anchorPos then
 		anchorPos = vec3(pos.x, pos.y, pos.z)
 	end
-
 	local id = obj:getID()
-	if id then
-		obj:queueGameEngineLua(string.format(
-			'local v=be:getObjectByID(%d); if v then v:setVelocity(vec3(0,0,0)); if v.setAngVelocity then v:setAngVelocity(vec3(0,0,0)) end end',
-			id))
+	if not id then return end
+
+	local dx = anchorPos.x - pos.x
+	local dy = anchorPos.y - pos.y
+	local dist = math.sqrt(dx * dx + dy * dy)
+	local hspeed = math.sqrt(vel.x * vel.x + vel.y * vel.y)
+
+	-- Sitting still. Leave the hull alone so cars on deck are not kicked.
+	if dist < 0.4 and hspeed < 0.15 then
+		return
 	end
 
-	if thrusters and thrusters.applyVelocity then
-		local err = anchorPos - pos
-		local pull = err * 2
-		local len = pull:length()
-		if len > 1 then
-			pull = pull * (1 / len)
-		end
-		thrusters.applyVelocity(pull, 0.05)
+	local tx = vel.x
+	local ty = vel.y
+	if hspeed > 0.15 then
+		local keep = math.max(0, hspeed - 0.35)
+		local scale = keep / hspeed
+		tx = vel.x * scale
+		ty = vel.y * scale
 	end
+	if dist > 0.4 then
+		local speed = math.min(0.25, (dist - 0.4) * 0.4)
+		tx = tx + dx / dist * speed
+		ty = ty + dy / dist * speed
+	end
+
+	obj:queueGameEngineLua(string.format(
+		'local v=be:getObjectByID(%d); if v then v:setVelocity(vec3(%.4f,%.4f,%.4f)) end',
+		id, tx, ty, vel.z))
 end
 
 local function updateGFX(dt)
@@ -72,9 +87,6 @@ local function updateGFX(dt)
 	elseif wasParked then
 		wasParked = false
 		anchorPos = nil
-		if thrusters and thrusters.applyVelocity then
-			thrusters.applyVelocity(vec3(0, 0, 0), 0)
-		end
 	end
 
 	-- 0.39 reads the speedometer only from wheels with speedo enabled.
