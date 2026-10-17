@@ -37,7 +37,7 @@
 		["frr3",-3.7942,-19.5178,3.5968],
 		["frr0",-4.042,-16.4621,-0.19],
 		["frr1",-3.8575,-16.2873,0.0881],
-		// Center of the deck edge and the ramp face, so the mesh follows the hinge.
+		// Center of the top edge and the ramp face, so the mesh follows the plate.
 		["fr2", 0.0, -20.0251, 3.899],
 		["fr3", 0.0, -19.4732, 3.5621],
 
@@ -46,9 +46,9 @@
 		{"selfCollision":false},
 		{"nodeWeight":80},
 		{"dragCoef":0},
-		// Cylinder mounts, above the stowed ramp. Not colliders.
-		["ral", 4.042, -17.7, 3.1],
-		["rar", -4.042, -17.7, 3.1],
+		// Cylinder bases on the bow, above the lip. Not colliders.
+		["ral", 4.042, -16.9, 3.55],
+		["rar", -4.042, -16.9, 3.55],
 	],
 //--Beams--
 	"beams":[
@@ -110,23 +110,23 @@
 		["fr3","fr0"],
 		["fr3","fr1"],
 
-		// Hinge the deck edge to the bow. The lip swings on this axis.
-		{"beamSpring":1500000,"beamDamp":200, "beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+		// The lip stays on the bow. The top edge is free to swing forward.
+		{"beamSpring":2000000,"beamDamp":150, "beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
-		["frl2","fhl0"],
-		["frl2","fhl1"],
-		["frl2","fhl2"],
-		["frr2","fhr0"],
-		["frr2","fhr1"],
-		["frr2","fhr2"],
-		["fr2","fhl0"],
-		["fr2","fhr0"],
-		["ral","fhl0"],
-		["ral","fhl1"],
+		["frl0","fhl4"],
+		["frl0","fhl5"],
+		["frl0","fh6"],
+		["frr0","fhr4"],
+		["frr0","fhr5"],
+		["frr0","fh6"],
+		["ral","fhl5"],
+		["ral","fhl9"],
+		["ral","fhl2"],
 		["ral","fhl4"],
-		["rar","fhr0"],
-		["rar","fhr1"],
+		["rar","fhr5"],
+		["rar","fhr9"],
+		["rar","fhr2"],
 		["rar","fhr4"],
     
    
@@ -143,16 +143,14 @@
 	
 	"hydros": [
 		["id1:","id2:"],
-		// factor is the length command BeamNG applies: input 1 extends these to
-		// 1.958x and swings the lip forward. inLimit/outLimit alone left the
-		// cylinders at rest, so the ramp never moved. Spring is strong enough
-		// to lift the ramp and soft enough not to trip an instability reset.
+		// factor extends these onto the top edge. Input 1 lengthens them to 2.24x,
+		// which swings that edge forward and down. The lip stays on the hull.
 		{"beamPrecompression":1.0, "beamLongBound":3, "beamShortBound":0.5},
 		{"beamSpring":1500000,"beamDamp":250,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
-		["ral", "frl0", {"inputSource":"ramp_lift","factor":0.958,"inRate":2,"outRate":2}],
-		["rar", "frr0", {"inputSource":"ramp_lift","factor":0.958,"inRate":2,"outRate":2}],
+		["ral", "frl2", {"inputSource":"ramp_lift","factor":1.237,"inRate":2,"outRate":2}],
+		["rar", "frr2", {"inputSource":"ramp_lift","factor":1.237,"inRate":2,"outRate":2}],
 	],
 	
 	
