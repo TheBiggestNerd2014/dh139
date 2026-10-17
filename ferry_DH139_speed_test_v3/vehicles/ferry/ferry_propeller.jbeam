@@ -168,16 +168,22 @@
         "lowShelfGain": 0,
         "lowShelfFreq": 100,
 
-        "highShelfGain":0,
-        "highShelfFreq":4500,
+        // Low-pass. There is no lowPass control; a negative high shelf
+        // cuts everything above highShelfFreq. The shelf used to sit at
+        // 4500 Hz with no cut, so the sample's top end came through once
+        // this diesel was pitched up near the 5000 rpm limiter.
+        "highShelfGain": -16,
+        "highShelfFreq": 2200,
 
         "eqLowGain": 0,
         "eqLowFreq": 350,
         "eqLowWidth": 0.25,
 
-        "eqHighGain": 0,
-        "eqHighFreq": 1400,
-        "eqHighWidth": 0.1,
+        // Extra cut through the squeak band, wide enough to act like a
+        // second stage of the same low-pass.
+        "eqHighGain": -12,
+        "eqHighFreq": 3600,
+        "eqHighWidth": 0.7,
 
         "fundamentalFrequencyCylinderCount":6,
         "eqFundamentalGain": 0,
@@ -195,16 +201,18 @@
         "lowShelfGain": -10,
         "lowShelfFreq": 100,
 
-        "highShelfGain": 6,
-        "highShelfFreq": 2500,
+        // Was +6 dB above 2500 Hz, which turned the max-rev whine up.
+        // Same low-pass as the engine layer: roll off the top, keep the body.
+        "highShelfGain": -16,
+        "highShelfFreq": 1800,
 
         "eqLowGain": 0,
         "eqLowFreq": 100,
         "eqLowWidth": 0.1,
 
-        "eqHighGain": 0,
-        "eqHighFreq": 2400,
-        "eqHighWidth": 0.1,
+        "eqHighGain": -12,
+        "eqHighFreq": 3000,
+        "eqHighWidth": 0.7,
 
         "fundamentalFrequencyCylinderCount":6,
         "eqFundamentalGain": -12,
