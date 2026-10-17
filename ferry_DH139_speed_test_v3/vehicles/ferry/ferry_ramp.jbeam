@@ -44,7 +44,7 @@
 		{"group":""},
 		{"collision":false},
 		{"selfCollision":false},
-		{"nodeWeight":40},
+		{"nodeWeight":80},
 		{"dragCoef":0},
 		// Cylinder mounts, above the stowed ramp. Not colliders.
 		["ral", 4.042, -17.7, 3.1],
@@ -54,7 +54,7 @@
 	"beams":[
 		["id1:", "id2:"],
 		{"disableMeshbreaking":"true"},
-		{"beamSpring":10000000,"beamDamp":6000, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
+		{"beamSpring":10000000,"beamDamp":80, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
         ["frr2","frr0"],
         ["frr3","frr1"],
         ["frr2","frr3"],
@@ -111,7 +111,7 @@
 		["fr3","fr1"],
 
 		// Hinge the deck edge to the bow. The lip swings on this axis.
-		{"beamSpring":8000000,"beamDamp":8000, "beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+		{"beamSpring":1500000,"beamDamp":200, "beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
 		["frl2","fhl0"],
@@ -143,15 +143,16 @@
 	
 	"hydros": [
 		["id1:","id2:"],
-		// Bow cylinders. ramp_lift 0 is the authored pose. 1 extends these
-		// to 1.958x, which plants the lip just above the water in front of the bow.
-		// factor is the fractional extension at input 1. Both sides match.
-		{"beamPrecompression":1.0},
-		{"beamSpring":4000000,"beamDamp":8000,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+		// Bow cylinders. ramp_lift 0 keeps the authored length. 1 extends them
+		// to 1.96x, which swings the lip forward and down to the water.
+		// No "factor": that key replaces inLimit/outLimit and was collapsing the travel.
+		// Long bound stays above the extended length so the hard limit does not fight the cylinder.
+		{"beamPrecompression":1.0, "beamLongBound":2.4, "beamShortBound":0.9},
+		{"beamSpring":400000,"beamDamp":400,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
-		["ral", "frl0", {"inputSource":"ramp_lift","factor":0.958,"inputFactor":0.958,"inLimit":0.2,"outLimit":1.97,"inRate":0.5,"outRate":0.5}],
-		["rar", "frr0", {"inputSource":"ramp_lift","factor":0.958,"inputFactor":0.958,"inLimit":0.2,"outLimit":1.97,"inRate":0.5,"outRate":0.5}],
+		["ral", "frl0", {"inputSource":"ramp_lift","inLimit":0,"outLimit":1.96,"inRate":0.15,"outRate":0.15,"inputFactor":0.96}],
+		["rar", "frr0", {"inputSource":"ramp_lift","inLimit":0,"outLimit":1.96,"inRate":0.15,"outRate":0.15,"inputFactor":0.96}],
 	],
 	
 	

@@ -4,93 +4,55 @@
 
 local M = {}
 
-local refNodeId = nil
 local anchorPos = nil
-local anchorRot = nil
 local wasParked = false
 
 local function onReset()
 	electrics.values['ramp_lift'] = 0
 	electrics.values['ramp_lift_input'] = 0
+	electrics.values.ferry_park = 0
 	anchorPos = nil
-	anchorRot = nil
 	wasParked = false
-	refNodeId = nil
 end
 
-local function ferryRefNode()
-	if refNodeId ~= nil then return refNodeId end
-	if beamstate and beamstate.nodeNameMap then
-		refNodeId = beamstate.nodeNameMap['ref']
-	end
-	return refNodeId
+local function parkingOn()
+	local value = electrics.values.ferry_park
+	if value == true then return true end
+	if type(value) == 'number' and value > 0.5 then return true end
+	value = electrics.values.parkingbrake
+	if value == true then return true end
+	if type(value) == 'number' and value > 0.5 then return true end
+	value = electrics.values.parking
+	if value == true then return true end
+	if type(value) == 'number' and value > 0.5 then return true end
+	return false
 end
 
--- World-space rotation that takes `current` onto `target`, as axis * angle.
-local function rotationError(target, current)
-	local inv = quat(-current.x, -current.y, -current.z, current.w)
-	local d = quat(
-		target.w * inv.x + target.x * inv.w + target.y * inv.z - target.z * inv.y,
-		target.w * inv.y - target.x * inv.z + target.y * inv.w + target.z * inv.x,
-		target.w * inv.z + target.x * inv.y - target.y * inv.x + target.z * inv.w,
-		target.w * inv.w - target.x * inv.x - target.y * inv.y - target.z * inv.z
-	)
-	if d.w < 0 then
-		d = quat(-d.x, -d.y, -d.z, -d.w)
-	end
-	local w = d.w
-	if w > 1 then w = 1 elseif w < -1 then w = -1 end
-	local angle = 2 * math.acos(w)
-	local s = math.sqrt(math.max(0, 1 - w * w))
-	if s < 1e-5 then
-		return vec3(0, 0, 0)
-	end
-	return vec3(d.x * angle / s, d.y * angle / s, d.z * angle / s)
-end
-
-local function capVec(v, maxLen)
-	local len = v:length()
-	if len > maxLen and len > 0 then
-		return v * (maxLen / len)
-	end
-	return v
-end
-
--- Parking brake on this ferry holds the hull at the pose where it was pressed.
--- Other vehicles never load this controller.
-local function update(dt)
-	if not dt or dt <= 0 then return end
-	local parking = (electrics.values.parkingbrake or 0) > 0
-	local nodeId = ferryRefNode()
-
-	if not parking then
-		if wasParked and nodeId and thrusters and thrusters.applyAccel then
-			thrusters.applyAccel(vec3(0, 0, 0), 0, nodeId, vec3(0, 0, 0))
-		end
-		wasParked = false
-		anchorPos = nil
-		anchorRot = nil
-		return
-	end
-
+-- Once per frame. The physics step is the wrong place for this: a per-step
+-- acceleration command stacks and the hull never actually gets zeroed.
+local function holdFerry()
 	local pos = obj:getPosition()
-	local rot = obj:getRotation()
-	if not pos or not rot then return end
-
-	if not wasParked or not anchorPos or not anchorRot then
+	if not pos then return end
+	if not anchorPos then
 		anchorPos = vec3(pos.x, pos.y, pos.z)
-		anchorRot = quat(rot.x, rot.y, rot.z, rot.w)
-		wasParked = true
 	end
 
-	if not thrusters or not thrusters.applyAccel then return end
+	local id = obj:getID()
+	if id then
+		obj:queueGameEngineLua(string.format(
+			'local v=be:getObjectByID(%d); if v then v:setVelocity(vec3(0,0,0)); if v.setAngVelocity then v:setAngVelocity(vec3(0,0,0)) end end',
+			id))
+	end
 
-	local vel = obj:getVelocity() or vec3(0, 0, 0)
-	local angVel = obj:getAngularVelocity() or vec3(0, 0, 0)
-	-- Pull back to the parked pose, and bleed off speed. Overdamped so it does not bounce.
-	local linAccel = capVec((anchorPos - pos) * 150 - vel * 30, 40)
-	local angAccel = capVec(rotationError(anchorRot, rot) * 80 - angVel * 20, 8)
-	pcall(thrusters.applyAccel, linAccel, dt, nodeId, angAccel)
+	if thrusters and thrusters.applyVelocity then
+		local err = anchorPos - pos
+		local pull = err * 2
+		local len = pull:length()
+		if len > 1 then
+			pull = pull * (1 / len)
+		end
+		thrusters.applyVelocity(pull, 0.05)
+	end
 end
 
 local function updateGFX(dt)
@@ -104,6 +66,17 @@ local function updateGFX(dt)
 	end
 	electrics.values.ramp_lift = rampLift
 
+	if parkingOn() then
+		wasParked = true
+		holdFerry()
+	elseif wasParked then
+		wasParked = false
+		anchorPos = nil
+		if thrusters and thrusters.applyVelocity then
+			thrusters.applyVelocity(vec3(0, 0, 0), 0)
+		end
+	end
+
 	-- 0.39 reads the speedometer only from wheels with speedo enabled.
 	-- The propellers are not speedo wheels, so that value stays at 0.
 	-- Use the hull velocity instead. wheelspeed is in m/s.
@@ -116,7 +89,6 @@ end
 -- public interface
 M.onInit    = onReset
 M.onReset   = onReset
-M.update    = update
 M.updateGFX = updateGFX
 
 return M
