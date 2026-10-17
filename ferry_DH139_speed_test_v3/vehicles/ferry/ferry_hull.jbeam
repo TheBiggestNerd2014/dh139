@@ -23,7 +23,7 @@
   "controller": [
         ["fileName"],
         ["vehicleController", {}],
-
+        ["ferry_lua", {}],
     ],
     "refNodes":[
         ["ref:", "back:", "left:", "up:", "leftCorner:", "rightCorner:"]

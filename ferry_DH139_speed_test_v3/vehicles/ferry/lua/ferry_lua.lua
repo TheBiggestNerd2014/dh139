@@ -18,10 +18,17 @@ local function onReset()
 end
 
 local function updateGFX(dt)
-   
-	electrics.values['ramp_lift'] = math.min(2, math.max(-2, (electrics.values['ramp_lift'] + electrics.values['ramp_lift_input'] * dt * 0.065)))
-	
-	
+	local rampLift = electrics.values.ramp_lift or 0
+	local rampInput = electrics.values.ramp_lift_input or 0
+	electrics.values.ramp_lift = math.min(2, math.max(-2, rampLift + rampInput * dt * 0.065))
+
+	-- 0.39 reads the speedometer only from wheels with speedo enabled.
+	-- The propellers are not speedo wheels, so that value stays at 0.
+	-- Use the hull velocity instead. wheelspeed is in m/s.
+	local velocity = obj:getVelocity()
+	if velocity then
+		electrics.values.wheelspeed = velocity:length()
+	end
 end
 
 -- public interface

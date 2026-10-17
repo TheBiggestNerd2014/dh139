@@ -21,10 +21,8 @@
         ["shaft", "propellerRShaft", "differential_R", 2, {"connectedWheel":"propeller_R", "breakTriggerBeam":"propeller_R", "uiName":"Right Propeller"}],
     ],
     "mainEngine":{
-        // In-game the prop matched ~2000 Nm just over 2000 rpm. A curve that kept
-        // climbing past the 8000 Nm damage rating broke the engine, which then
-        // bogged near 1000 rpm. Stay under that rating and let the lighter blades
-        // spin up instead.
+        // Prop drag grows with rpm squared, so a flat 6000 Nm curve fades after 3500.
+        // Torque keeps rising through 5000. The damage rating is raised above this peak.
         "torque":[
             ["rpm", "torque"],
             [0,      0],
@@ -33,11 +31,13 @@
             [1200, 3500],
             [1600, 4800],
             [2000, 5500],
-            [3000, 6000],
-            [4000, 6000],
-            [5000, 5800],
-            [5400, 5200],
-            [5600, 3500],
+            [3000, 7000],
+            [3500, 8800],
+            [4000, 10500],
+            [4500, 11500],
+            [5000, 12000],
+            [5400, 11500],
+            [5600, 7000],
         ],
         "idleRPM":600,
         "maxRPM":5000,
