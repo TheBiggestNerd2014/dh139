@@ -143,16 +143,16 @@
 	
 	"hydros": [
 		["id1:","id2:"],
-		// Bow cylinders. ramp_lift 0 keeps the authored length. 1 extends them
-		// to 1.96x, which swings the lip forward and down to the water.
-		// No "factor": that key replaces inLimit/outLimit and was collapsing the travel.
-		// Long bound stays above the extended length so the hard limit does not fight the cylinder.
-		{"beamPrecompression":1.0, "beamLongBound":2.4, "beamShortBound":0.9},
-		{"beamSpring":400000,"beamDamp":400,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+		// factor is the length command BeamNG applies: input 1 extends these to
+		// 1.958x and swings the lip forward. inLimit/outLimit alone left the
+		// cylinders at rest, so the ramp never moved. Spring is strong enough
+		// to lift the ramp and soft enough not to trip an instability reset.
+		{"beamPrecompression":1.0, "beamLongBound":3, "beamShortBound":0.5},
+		{"beamSpring":1500000,"beamDamp":250,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
-		["ral", "frl0", {"inputSource":"ramp_lift","inLimit":0,"outLimit":1.96,"inRate":0.15,"outRate":0.15,"inputFactor":0.96}],
-		["rar", "frr0", {"inputSource":"ramp_lift","inLimit":0,"outLimit":1.96,"inRate":0.15,"outRate":0.15,"inputFactor":0.96}],
+		["ral", "frl0", {"inputSource":"ramp_lift","factor":0.958,"inRate":2,"outRate":2}],
+		["rar", "frr0", {"inputSource":"ramp_lift","factor":0.958,"inRate":2,"outRate":2}],
 	],
 	
 	
