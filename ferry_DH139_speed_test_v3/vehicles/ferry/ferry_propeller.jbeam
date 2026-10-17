@@ -21,25 +21,23 @@
         ["shaft", "propellerRShaft", "differential_R", 2, {"connectedWheel":"propeller_R", "breakTriggerBeam":"propeller_R", "uiName":"Right Propeller"}],
     ],
     "mainEngine":{
-        // Static prop load through the 10:1 differential crosses about 1450 Nm near 2000 rpm
-        // and about 9100 Nm at 5000 rpm. The turbo does not build boost while the prop is
-        // holding the engine there, so this crank curve has to clear that load by itself.
+        // In-game the prop matched ~2000 Nm just over 2000 rpm. A curve that kept
+        // climbing past the 8000 Nm damage rating broke the engine, which then
+        // bogged near 1000 rpm. Stay under that rating and let the lighter blades
+        // spin up instead.
         "torque":[
             ["rpm", "torque"],
-            [0,       0],
-            [200,   900],
-            [600,  1600],
-            [1000, 2200],
-            [1500, 3200],
-            [2000, 4200],
-            [2500, 5300],
-            [3000, 6500],
-            [3500, 7800],
-            [4000, 9000],
-            [4500, 10200],
-            [5000, 11200],
-            [5400, 11200],
-            [5600, 7000],
+            [0,      0],
+            [400,  800],
+            [800, 2000],
+            [1200, 3500],
+            [1600, 4800],
+            [2000, 5500],
+            [3000, 6000],
+            [4000, 6000],
+            [5000, 5800],
+            [5400, 5200],
+            [5600, 3500],
         ],
         "idleRPM":600,
         "maxRPM":5000,
@@ -83,8 +81,8 @@
         "headGasketDamageThreshold":1700000,
         "pistonRingDamageThreshold":1700000,
         "connectingRodDamageThreshold":2200000,
-        "maxTorqueRating": 8000,
-        "maxOverTorqueDamage": 3000,
+        "maxTorqueRating": 25000,
+        "maxOverTorqueDamage": 20000,
 
         //node beam interface
         "breakTriggerBeam":"engine",
@@ -149,12 +147,11 @@
         ],
         "engineDef":[
             //engineRPM, efficiency, exhaustFactor
-            // Efficiency stays near zero so boost cannot multiply the crank curve.
-            // Under prop load the turbine was not reaching the 55 psi wastegate,
-            // and a late 4x multiplier would push past maxTorqueRating.
-            [0,     0.01,   0.20],
-            [800,   0.01,   0.80],
-            [5600,  0.01,   0.80],
+            // The gauge shows ~12 psi here. Keep the multiplier small so that
+            // boost cannot push the 6000 Nm curve into engine damage.
+            [0,     0.05,   0.20],
+            [800,   0.05,   0.80],
+            [5600,  0.05,   0.80],
         ],
     },
     "soundConfig": {
@@ -469,9 +466,10 @@
     ],
     "triangles": [
           ["id1:", "id2:", "id3:"],
-          // Blade drag is the thrust. Lowering it unloads the engine and also cuts top speed.
-          {"dragCoef":200},
-		  {"liftCoef":200},
+          // Was 200. That load stalled a healthy engine near 2000 rpm and
+          // broke the engine once the crank curve was raised to match it.
+          {"dragCoef":80},
+		  {"liftCoef":80},
           {"group":"propeller_L"},
           ["prop1l", "prop7l", "prop3l"],
           ["prop1l", "prop8l", "prop4l"],
