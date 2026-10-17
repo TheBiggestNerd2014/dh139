@@ -18,9 +18,15 @@ local function onReset()
 end
 
 local function updateGFX(dt)
+	-- 0 is stowed on the bow, 1 is fully lowered. Releasing the key holds position.
+	-- Full travel takes about 8 seconds.
 	local rampLift = electrics.values.ramp_lift or 0
 	local rampInput = electrics.values.ramp_lift_input or 0
-	electrics.values.ramp_lift = math.min(2, math.max(-2, rampLift + rampInput * dt * 0.065))
+	if rampLift < 0 then rampLift = 0 elseif rampLift > 1 then rampLift = 1 end
+	if rampInput ~= 0 then
+		rampLift = math.min(1, math.max(0, rampLift + rampInput * dt * 0.125))
+	end
+	electrics.values.ramp_lift = rampLift
 
 	-- 0.39 reads the speedometer only from wheels with speedo enabled.
 	-- The propellers are not speedo wheels, so that value stays at 0.
