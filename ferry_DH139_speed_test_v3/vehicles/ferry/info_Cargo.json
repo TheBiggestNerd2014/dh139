@@ -1,0 +1,26 @@
+{
+  "0-8 mph":10,
+  "BoundingBox":[
+    [
+      -0.28,
+      -1.92,
+      -0.268
+    ],
+    [
+      1.82,
+      3.84,
+      1.16
+    ]
+  ],
+  "Config Type":"Custom",
+  "Configuration":"Cargo",
+  "Description":"Cargo Model",
+  "Fuel Type":"Diesel",
+  "Top Speed":5.2,
+  "Value":97300,
+  "Years":{
+    "max":1975,
+    "min":1973
+  }
+  
+}

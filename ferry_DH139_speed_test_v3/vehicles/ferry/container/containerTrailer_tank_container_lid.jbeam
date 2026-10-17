@@ -1,0 +1,324 @@
+{
+"containerTrailer_tank_container_lid_F": {
+    "information":{
+        "authors":"BeamNG",
+        "name":"Front Lid",
+        "value":100,
+    },
+    "slotType" : "containerTrailer_tank_container_lid_F",
+    "flexbodies": [
+         ["mesh", "[group]:", "nonFlexMaterials"],
+         ["container_tank_lid_B", ["container_tank_lid_B"]],
+         ["container_tank_lid_B_lockpin_L", ["container_tank_lid_B"]],
+         ["container_tank_lid_B_lockpin_R", ["container_tank_lid_B"]],
+    ],
+    "triggers":[
+        ["id",        "label", "idRef:", "idX:", "idY:", "type", "size",                           "baseRotation",         "rotation",            "translation",         "baseTranslation"],
+        ["lid_B_L",   "",      "tlid1l", "tlid2l", "tlid1r", "box",  {"x":0.055, "y":0.045, "z":0.015}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0.08, "y":-0.02, "z":-0.055}],
+        ["lid_B_R",   "",      "tlid1r", "tlid2r", "tlid1l", "box",  {"x":0.055, "y":0.045, "z":0.015}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0.08, "y":-0.02, "z": 0.010}],
+    ],
+    "triggerEventLinks":[
+        ["triggerId:triggers", "action", "targetEventId:events"],
+        ["lid_B_L", "action0", "lidBLatch"],
+        ["lid_B_R", "action0", "lidBLatch"],
+    ],
+    "events":[
+        ["id", "title", "desc"],
+        ["lidBLatch", "ui.inputActions.common.toolboxLatch.title", "ui.inputActions.common.toolboxLatch.description", {"onUp":"controller.getControllerSafe('lidBCoupler').toggleGroup()"}],
+    ],
+    "controller": [
+        ["fileName"],
+        ["advancedCouplerControl", {"name":"lidBCoupler"}],
+    ],
+    "lidBCoupler":{
+        "groupType": "manualClose",
+        "couplerNodes":[
+            ["cid1",    "cid2",     "autoCouplingStrength",    "autoCouplingRadius",   "autoCouplingLockRadius",   "autoCouplingSpeed", "couplingStartRadius",  "breakGroup"]
+            ["tbx1r",  "tlid1r",    24000,                     0.01,                   0.005,                      0.2,                 0.2,                    "lid_B_latch"],
+            ["tbx1l",  "tlid1l",    24000,                     0.01,                   0.005,                      0.2,                 0.2,                    "lid_B_latch"],
+        ]
+        "attachSoundVolume":1,
+        "detachSoundVolume":1,
+        "soundNode:":["tlid1r","tlid1l"]
+        "attachSoundEvent": "event:>Vehicle>Latches>Special>toolbox_01_close",
+        "detachSoundEvent": "event:>Vehicle>Latches>Special>toolbox_01_open",
+        "breakSoundEvent":""
+        "openForceMagnitude": 10,
+        "openForceDuration": 0.5,
+        "closeForceMagnitude": 1200,
+        "closeForceDuration": 0.5,
+    },
+    "glowMap":{
+        "Container_Tank_lockpin":{"simpleFunction":"lidBCoupler_notAttached", "off":"Container_Tank", "on":"invis"},
+    },
+    "nodes": [
+        ["id", "posX", "posY", "posZ"],
+        {"frictionCoef":0.5},
+        {"collision":true},
+        {"selfCollision":false},
+        {"nodeMaterial":"|NM_METAL"},
+        //lid
+        {"group":"container_tank_lid_B"},
+        {"nodeWeight":4.0},
+        ["tlid1r", 0.4, 0.048, 0.104],
+        ["tlid1l",-0.4, 0.048, 0.104],
+        ["tlid2r", 0.4, 0.048, 0.456, {"couplerTag":"lid_B_hinge_R", "couplerStrength":61000, "couplerRadius":0.1, "couplerStartRadius":0.1, "couplerLock":true, "breakGroup":"lid_B_hinge"}],
+        ["tlid2l",-0.4, 0.048, 0.456, {"couplerTag":"lid_B_hinge_L", "couplerStrength":61000, "couplerRadius":0.1, "couplerStartRadius":0.1, "couplerLock":true, "breakGroup":"lid_B_hinge"}],
+        {"collision":false},
+        {"group":""},
+        {"nodeWeight":6.0},
+        ["tlidr1", 0, 0.250, 0.285],
+    ],
+    "beams": [
+          ["id1:", "id2:"],
+          {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1.0, "beamShortBound":1.0},
+          {"beamSpring":4001000,"beamDamp":400},
+          {"beamDeform":61000,"beamStrength":"FLT_MAX"},
+          //main shape
+          ["tlid1r","tlid1l"],
+          ["tlid2r","tlid2l"],
+          ["tlid1r","tlid2r"],
+          ["tlid1l","tlid2l"],
+
+          //cross
+          {"beamDeform":21000,"beamStrength":"FLT_MAX"},
+          ["tlid1r","tlid2l"],
+          ["tlid1l","tlid2r"],
+
+          //rigidifier
+          {"beamDeform":15000,"beamStrength":"FLT_MAX"},
+          ["tlid1r","tlidr1"],
+          ["tlid1l","tlidr1"],
+          ["tlid2r","tlidr1"],
+          ["tlid2l","tlidr1"],
+
+          //support beams
+          {"beamPrecompression":2.0, "beamType":"|SUPPORT", "beamLongBound":3},
+          {"beamSpring":1000,"beamDamp":200},
+          {"beamDeform":122000,"beamStrength":"FLT_MAX"},
+          {"breakGroup":"lid_B_latch"},
+          ["tlid1l","tbx4l"],
+          ["tlid1r","tbx4r"],
+          {"breakGroup":""},
+          {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1.0, "beamShortBound":1.0},
+    ],
+    "triangles": [
+        ["id1:","id2:","id3:"],
+        {"groundModel":"metal"},
+        {"dragCoef":15},
+        {"group":"tank_container_lid"},
+        ["tlid2l","tlid1l","tlid1r"],
+        ["tlid2l","tlid1r","tlid2r"],
+    ],
+},
+
+"containerTrailer_tank_container_lid_T": {
+    "information":{
+        "authors":"BeamNG",
+        "name":"Spill Box Covers",
+        "value":250,
+    },
+    "slotType" : "containerTrailer_tank_container_lid_T",
+    "flexbodies": [
+         ["mesh", "[group]:", "nonFlexMaterials"],
+         ["container_tank_lid_T1", ["container_tank_lid_T1"]],
+         ["container_tank_lid_T2", ["container_tank_lid_T2"]],
+    ],
+    "props": [
+        ["func", "mesh",                              "idRef:", "idX:", "idY:",    "baseRotation",         "rotation",            "translation", "min", "max", "offset", "multiplier"],
+        ["lidT1Coupler_notAttached", "container_tank_lid_T1_lockpin",  "tbx5r", "tbx5l","tbx6r", {"x":0, "y":0, "z":180}, {"x":0, "y":0, "z":0}, {"x":0.035, "y":0, "z":0}, 0, 1, 0, 1, {"baseTranslation":{"x":0.137,"y":-0.035,"z":-0.004}}],
+        ["lidT2Coupler_notAttached", "container_tank_lid_T2_lockpin",  "tbx7r", "tbx7l","tbx8r", {"x":0, "y":0, "z":180}, {"x":0, "y":0, "z":0}, {"x":0.035, "y":0, "z":0}, 0, 1, 0, 1, {"baseTranslation":{"x":0.137,"y":-0.035,"z":-0.004}}],
+    ],
+    "triggers":[
+        ["id",        "label", "idRef:", "idX:", "idY:", "type", "size",                           "baseRotation",         "rotation",            "translation",         "baseTranslation"],
+        ["lid_T1",   "",      "tbx5r", "tbx5l", "tbx6r", "box",  {"x":0.125, "y":0.035, "z":0.035}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0.16, "y":-0.05, "z":-0.015}],
+        ["lid_T2",   "",      "tbx7r", "tbx7l", "tbx8r", "box",  {"x":0.125, "y":0.035, "z":0.035}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0.16, "y":-0.05, "z":-0.015}],
+    ],
+    "triggerEventLinks":[
+        ["triggerId:triggers", "action", "targetEventId:events"],
+        ["lid_T1", "action0", "lidT1Latch"],
+        ["lid_T2", "action0", "lidT2Latch"],
+    ],
+    "events":[
+        ["id", "title", "desc"],
+        ["lidT1Latch", "ui.inputActions.common.toolboxLatch.title", "ui.inputActions.common.toolboxLatch.description", {"onUp":"controller.getControllerSafe('lidT1Coupler').toggleGroup()"}],
+        ["lidT2Latch", "ui.inputActions.common.toolboxLatch.title", "ui.inputActions.common.toolboxLatch.description", {"onUp":"controller.getControllerSafe('lidT2Coupler').toggleGroup()"}],
+    ],
+    "controller": [
+        ["fileName"],
+        ["advancedCouplerControl", {"name":"lidT1Coupler"}],
+        ["advancedCouplerControl", {"name":"lidT2Coupler"}],
+    ],
+    "lidT1Coupler":{
+        "groupType": "manualClose",
+        "couplerNodes":[
+            ["cid1",    "cid2",     "autoCouplingStrength",    "autoCouplingRadius",   "autoCouplingLockRadius",   "autoCouplingSpeed", "couplingStartRadius",  "breakGroup"]
+            ["tbx5r",  "tlid3r",    51000,                     0.01,                   0.005,                      0.2,                 0.2,                    "lid_T1_latch"],
+            ["tbx5l",  "tlid3l",    51000,                     0.01,                   0.005,                      0.2,                 0.2,                    "lid_T1_latch"],
+        ]
+        "attachSoundVolume":1,
+        "detachSoundVolume":1,
+        "soundNode:":["tlid3r"]
+        "attachSoundEvent": "event:>Vehicle>Latches>Special>toolbox_01_close",
+        "detachSoundEvent": "event:>Vehicle>Latches>Special>toolbox_01_open",
+        "breakSoundEvent":""
+        "openForceMagnitude": 15,
+        "openForceDuration": 0.5,
+        "closeForceMagnitude": 2500,
+        "closeForceDuration": 1.0,
+    },
+    "lidT2Coupler":{
+        "groupType": "manualClose",
+        "couplerNodes":[
+            ["cid1",    "cid2",     "autoCouplingStrength",    "autoCouplingRadius",   "autoCouplingLockRadius",   "autoCouplingSpeed", "couplingStartRadius",  "breakGroup"]
+            ["tbx7r",  "tlid5r",    51000,                     0.01,                   0.005,                      0.2,                 0.2,                    "lid_T2_latch"],
+            ["tbx7l",  "tlid5l",    51000,                     0.01,                   0.005,                      0.2,                 0.2,                    "lid_T2_latch"],
+        ]
+        "attachSoundVolume":1,
+        "detachSoundVolume":1,
+        "soundNode:":["tlid5r"]
+        "attachSoundEvent": "event:>Vehicle>Latches>Special>toolbox_01_close",
+        "detachSoundEvent": "event:>Vehicle>Latches>Special>toolbox_01_open",
+        "breakSoundEvent":""
+        "openForceMagnitude": 5,
+        "openForceDuration": 1.0,
+        "closeForceMagnitude": 4000,
+        "closeForceDuration": 1.5,
+    },
+    "nodes": [
+        ["id", "posX", "posY", "posZ"],
+        {"frictionCoef":0.5},
+        {"collision":true},
+        {"selfCollision":false},
+        {"nodeMaterial":"|NM_METAL"},
+        //lid
+        {"group":"container_tank_lid_T1"},
+        {"nodeWeight":4.0},
+        ["tlid3r", 0.5, 0.733, 2.524],
+        ["tlid3l",-0.5, 0.733, 2.524],
+        ["tlid4r", 0.5, 1.396, 2.524, {"couplerTag":"lid_T1_hinge_R", "couplerStrength":61000, "couplerRadius":0.1, "couplerStartRadius":0.1, "couplerLock":true, "breakGroup":"lid_T1_hinge"}],
+        ["tlid4l",-0.5, 1.396, 2.524, {"couplerTag":"lid_T1_hinge_L", "couplerStrength":61000, "couplerRadius":0.1, "couplerStartRadius":0.1, "couplerLock":true, "breakGroup":"lid_T1_hinge"}],
+        {"group":"container_tank_lid_T2"},
+        {"nodeWeight":8.0},
+        ["tlid5r", 0.5, 2.688, 2.524],
+        ["tlid5l",-0.5, 2.688, 2.524],
+        ["tlid6r", 0.5, 3.868, 2.524, {"couplerTag":"lid_T2_hinge_R", "couplerStrength":61000, "couplerRadius":0.1, "couplerStartRadius":0.1, "couplerLock":true, "breakGroup":"lid_T2_hinge"}],
+        ["tlid6l",-0.5, 3.868, 2.524, {"couplerTag":"lid_T2_hinge_L", "couplerStrength":61000, "couplerRadius":0.1, "couplerStartRadius":0.1, "couplerLock":true, "breakGroup":"lid_T2_hinge"}],
+        {"collision":false},
+        {"group":""},
+        {"nodeWeight":6.0},
+        ["tlidr2", 0, 1.045, 2.000],
+        {"nodeWeight":12.0},
+        ["tlidr3", 0, 3.259, 1.900],
+    ],
+    "beams": [
+          ["id1:", "id2:"],
+          {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1.0, "beamShortBound":1.0},
+
+          //--LID 1--
+          {"beamSpring":4001000,"beamDamp":400},
+          {"beamDeform":61000,"beamStrength":"FLT_MAX"},
+          //main shape
+          ["tlid3r","tlid3l"],
+          ["tlid4r","tlid4l"],
+          ["tlid3r","tlid4r"],
+          ["tlid3l","tlid4l"],
+
+          //cross
+          {"beamDeform":43000,"beamStrength":"FLT_MAX"},
+          ["tlid3r","tlid4l"],
+          ["tlid3l","tlid4r"],
+
+          //rigidifier
+          {"beamDeform":35000,"beamStrength":"FLT_MAX"},
+          ["tlid3r","tlidr2"],
+          ["tlid3l","tlidr2"],
+          ["tlid4r","tlidr2"],
+          ["tlid4l","tlidr2"],
+
+
+          //--LID 2--
+          {"beamSpring":8001000,"beamDamp":800},
+          {"beamDeform":121000,"beamStrength":"FLT_MAX"},
+          //main shape
+          ["tlid5r","tlid5l"],
+          ["tlid6r","tlid6l"],
+          ["tlid5r","tlid6r"],
+          ["tlid5l","tlid6l"],
+
+          //cross
+          {"beamDeform":86000,"beamStrength":"FLT_MAX"},
+          ["tlid5r","tlid6l"],
+          ["tlid5l","tlid6r"],
+
+          //rigidifier
+          {"beamDeform":70000,"beamStrength":"FLT_MAX"},
+          ["tlid5r","tlidr3"],
+          ["tlid5l","tlidr3"],
+          ["tlid6r","tlidr3"],
+          ["tlid6l","tlidr3"],
+
+          //support beams
+          {"beamPrecompression":2, "beamType":"|SUPPORT", "beamLongBound":3},
+          {"beamSpring":1000,"beamDamp":200},
+          {"beamDeform":2000,"beamStrength":4000},
+          {"breakGroup":"lid_T1_latch"},
+          ["tlid3l","tnk35l"],
+          ["tlid3r","tnk35r"],
+          {"beamPrecompression":2.5, "beamType":"|SUPPORT", "beamLongBound":3},
+          {"beamDeform":3000,"beamStrength":6000},
+          {"breakGroup":"lid_T2_latch"},
+          ["tlid5l","tnk34l"],
+          ["tlid5r","tnk34r"],
+          {"beamPrecompression":0.55, "beamType":"|SUPPORT", "beamLongBound":20},
+          {"beamSpring":30000,"beamDamp":200},
+          {"beamDeform":122000,"beamStrength":241000},
+          {"breakGroup":""},
+          ["tlid5l","out1"],
+          ["tlid5r","out1"],
+
+          {"beamPrecompression":0.999, "beamType":"|SUPPORT", "beamLongBound":4},
+          {"beamSpring":4001000,"beamDamp":400},
+          {"beamDeform":61000,"beamStrength":"FLT_MAX"},
+
+          ["tlid3l","tnk35l", {"optional":true}],
+          ["tlid3r","tnk35r", {"optional":true}],
+          ["tlid3l","tnk45l"],
+          ["tlid3r","tnk45r"],
+
+          ["tlid4l","tnk45l"],
+          ["tlid4l","tnk34l"],
+          ["tlid4l","tnk44l"],
+          ["tlid4r","tnk45r"],
+          ["tlid4r","tnk34r"],
+          ["tlid4r","tnk44r"],
+
+          ["tlid5l","tnk43l"],
+          ["tlid5l","tnk33l"],
+          ["tlid5l","tnk44l"],
+          ["tlid5r","tnk43r"],
+          ["tlid5r","tnk33r"],
+          ["tlid5r","tnk44r"],
+
+          ["tlid6l","tnk43l"],
+          ["tlid6l","tnk32l"],
+          ["tlid6l","tnk42l"],
+          ["tlid6r","tnk43r"],
+          ["tlid6r","tnk32r"],
+          ["tlid6r","tnk42r"],
+
+          {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1.0, "beamShortBound":1.0},
+    ],
+    "triangles": [
+        ["id1:","id2:","id3:"],
+        {"groundModel":"metal"},
+        {"dragCoef":15},
+        {"group":"tank_container_lid"},
+        ["tlid4l","tlid3l","tlid3r"],
+        ["tlid4l","tlid3r","tlid4r"],
+        ["tlid6l","tlid5l","tlid5r"],
+        ["tlid6l","tlid5r","tlid6r"],
+    ],
+},
+
+}

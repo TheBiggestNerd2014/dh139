@@ -1,0 +1,219 @@
+{
+"ferry_ramp":{
+	"information":{
+		"authors":"JGB",
+		"name":"Ferry Ramp",
+		"value":2000,
+	},
+	"slotType":"ferry_ramp",
+	
+	
+	"flexbodies": [
+         ["mesh", "[group]:", "nonFlexMaterials"],
+		 ["ferry_ramp", ["ferry_ramp"]],
+		],
+		
+	
+
+
+
+"slidenodes": [ 
+     ["id:", "railName", "attached", "fixToRail", "tolerance", "spring", "strength", "capStrength"],
+ 
+     ["frl2", "Rail_L", true, true, 0, 100000, 100000000, 345435],
+	 
+	 ["frr2", "Rail_R", true, true, 0, 100000, 100000000, 345435],
+],	
+
+"rails": {
+      "Rail_L":{"links:":["frrl2", "frrl1", "frrl"], "looped":false, "capped":true},
+	  
+	  "Rail_R":{"links:":["frrr2", "frrr1", "frrr"], "looped":false, "capped":true},
+},
+//--Nodes--
+	"nodes":[
+		["id", "posX", "posY", "posZ"],
+		{"collision":true},
+		{"selfCollision":false},
+		{"group":"ferry_ramp"},
+		{"nodeWeight":50},
+		{"dragCoef":10},
+		
+		//LEFT
+		["frl2",4.088,-20.0251,3.899],
+		["frl3",3.8135,-19.5178,3.5968],
+		["frl0",4.042,-16.4621,-0.19],
+		["frl1",3.8479,-16.315,0.0882],
+		["fr0",0.0,-16.655,-0.19],
+		["fr1",0.0,-16.655,0.078],
+		["frr2",-4.088,-20.0251,3.899],
+		["frr3",-3.7942,-19.5178,3.5968],
+		["frr0",-4.042,-16.4621,-0.19],
+		["frr1",-3.8575,-16.2873,0.0881],
+		
+		
+		{"group":"ramp_rail"},
+		{"collision":false},
+		{"selfCollision":false},
+		{"nodeWeight":5},
+		{"dragCoef":0},
+        ["frrl", 4.0677, -21.8437, -1.9386],
+        ["frrr", -4.0677, -21.8437, -1.9386],
+        ["frrl2", 4.0677, -20.0251, 3.899],
+        ["frrr2", -4.0677, -20.0251, 3.899],
+		["frrl1", 4.0677, -21.0402, 2.7085],
+        ["frrr1", -4.0677, -21.0402, 2.7085],
+		
+		
+		{"collision":true},
+		{"selfCollision":false},
+		{"nodeWeight":50},
+		{"dragCoef":10},
+		{"group":""},
+        
+	],
+//--Beams--
+	"beams":[
+		["id1:", "id2:"],
+		{"disableMeshbreaking":"true"},
+		{"beamSpring":10000000,"beamDamp": 1, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
+        ["frr2","frr0"],
+        ["frr3","frr1"],
+        ["frr2","frr3"],
+        ["frr0","frr1"],
+        ["frr2","frr1"],
+        ["frr3","frr0"],
+        ["fr1","frr1"],
+        ["fr0","frr0"],
+        ["fr1","frr0"],
+        ["fr0","fr1"],
+        ["fr0","frr1"],
+        ["frl1","fr1"],
+        ["frl0","frl1"],
+        ["frl0","fr1"],
+        ["frl0","fr0"],
+        ["frl1","fr0"],
+        ["frl3","frl1"],
+        ["frl2","frl3"],
+        ["frl2","frl0"],
+        ["frl3","frl0"],
+        ["frl2","frl1"],
+        ["frl3","frr3"],
+        ["frl2","frr2"],
+        ["frl3","frr2"],
+        ["frl2","frr3"],
+        ["frl2","frr0"],
+        ["frl0","frr2"],
+        ["frl1","frr3"],
+        ["frl3","frr1"],
+		
+		["fr1","frr3"],
+        ["frl3","fr1"],
+        ["frl2","fr0"],
+        ["fr0","frr2"],
+		["frl2","frr1"],
+        ["frl3","frr0"],
+        ["frl0","frr3"],
+        ["frl1","frr2"],
+		
+		
+		
+		//RAIL
+		["frrl","frrr"],
+        ["frrl","frrl2"],
+        ["frrr","frrr2"],
+		["frrr2","frrl2"],
+		 ["frrl","frrl1"],
+        ["frrl2","frrl1"],
+        ["frrr2","frrr1"],
+        ["frrr","frrr1"],
+        ["frrl1","frrr1"],
+        ["frrl2","frrr1"],
+        ["frrr2","frrl1"],
+        ["frrr","frrl1"],
+        ["frrl","frrr1"],
+		
+		//ATTACH
+		{"beamSpring":500000,"beamDamp": 1, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
+		{"breakGroup":"ramp"},
+		{"breakGroupType":1},
+		{"beamStrength":5000000},
+		["frrr","fhr4"],
+		["frrl","fhl4"],
+		["frrr2","fhr5"],
+		["frrl2","fhl5"],
+		["frrr2","fhr0"],
+		["frrl2","fhl0"],
+		
+		["frrr","fhr0"],
+		["frrl","fhl0"],
+		
+		["frrl","fhr0"],
+		["frrr","fhl0"],
+		
+		
+		
+		["frrr","fhl4"],
+		["frrl","fhr4"],
+		
+		["fr0","fh6"],
+		
+		["frr0","fhr4"],
+		["frl0","fhl4"],
+    
+   
+       
+		
+		
+		
+        
+        
+       
+        
+	],
+	
+	
+	"hydros": [
+	["id1:","id2:"],
+	//ramp
+			{"beamSpring":3000},
+			{"breakGroup":"ramp"},
+			{"beamStrength":"FLT_MAX"},
+	["frl2", "frrl2", {"inputSource":"ramp_lift","inLimit":-1,"outLimit":1.5,"inRate":1.5,"outRate":1.5,"inputFactor": 1.0}],
+	["frl2", "frrl", {"inputSource":"ramp_lift","inLimit":-1,"outLimit":1.5,"inRate":2,"outRate":2,"inputFactor": -1.0}],
+	
+	
+	["frr2", "frrr2",	{"inputSource":"ramp_lift","inLimit":-1.5,"outLimit":1.5,"inRate":1.5,"outRate":1.5,"inputFactor": 1.0}],
+	["frr2", "frrr",	{"inputSource":"ramp_lift","inLimit":-1.5,"outLimit":1.5,"inRate":2,"outRate":2,"inputFactor": -1.0}],
+
+			{"beamSpring":""},
+			{"beamStrength":""},
+	],
+	
+	
+//--Collision Triangles--
+	"triangles":[
+		["id1:", "id2:", "id3:"],
+		{"dragCoef":30},
+		{"collision":true},
+		{"selfCollision":false},
+		{"groundModel":"metal"},
+        ["frr0","fr0","frr2"],
+        ["frl0","frl2","fr0"],
+        ["fr0","frl2","frr2"],
+        ["frl3","frr3","frl2"],
+        ["frr2","frl2","frr3"],
+        ["frl1","fr1","frl3"],
+        ["fr1","frr3","frl3"],
+        ["frr1","frr3","fr1"],
+        ["frr2","frr3","frr0"],
+        ["frr1","frr0","frr3"],
+        ["frl2","frl0","frl3"],
+        ["frl1","frl3","frl0"],
+	],
+    "quads":[
+        ["id1:","id2:","id3:","id4:"],
+        ["frrl","frrr","ff255b24-a227-44db-b70e-9266cc8929ba","e0e3f3ed-ed20-49ca-a2f8-a6fa66c71a4f"],
+    ],
+},
+}

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 4.1.1 commit date:2024-04-15, commit time:15:11, hash:e1743a0317bc</authoring_tool>
+    </contributor>
+    <created>2024-07-31T11:41:11</created>
+    <modified>2024-07-31T11:41:11</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="ferry_white-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_white_paint-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">1 1 1 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_blue-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_hazard-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">1 1 1 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_railing-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <transparent opaque="A_ONE">
+              <color sid="alpha">0 0 0 0</color>
+            </transparent>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_red-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_window-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0 0.08495094 0.166333 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="ferry_black-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images/>
+  <library_materials>
+    <material id="ferry_white-material" name="ferry_white">
+      <instance_effect url="#ferry_white-effect"/>
+    </material>
+    <material id="ferry_white_paint-material" name="ferry_white_paint">
+      <instance_effect url="#ferry_white_paint-effect"/>
+    </material>
+    <material id="ferry_blue-material" name="ferry_blue">
+      <instance_effect url="#ferry_blue-effect"/>
+    </material>
+    <material id="ferry_hazard-material" name="ferry_hazard">
+      <instance_effect url="#ferry_hazard-effect"/>
+    </material>
+    <material id="ferry_railing-material" name="ferry_railing">
+      <instance_effect url="#ferry_railing-effect"/>
+    </material>
+    <material id="ferry_red-material" name="ferry_red">
+      <instance_effect url="#ferry_red-effect"/>
+    </material>
+    <material id="ferry_window-material" name="ferry_window">
+      <instance_effect url="#ferry_window-effect"/>
+    </material>
+    <material id="ferry_black-material" name="ferry_black">
+      <instance_effect url="#ferry_black-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Cube_002-mesh" name="Cube.002">
+      <mesh>
+        <source id="Cube_002-mesh-positions">
+          <float_array id="Cube_002-mesh-positions-array" count="153">-5.700542 -10.63396 -0.03975987 -5.235119 -10.63396 5.644539 -5.700542 -11.3365 -0.03975987 -5.235119 -11.3365 5.644539 -5.414775 -10.63396 -0.03975987 -4.949352 -10.63396 5.222062 -5.414775 -11.3365 -0.03975987 -4.949352 -11.3365 5.222062 5.700742 -10.63396 -0.03975987 5.235319 -10.63396 5.644539 9.95867e-5 -10.63396 5.644539 5.700742 -11.3365 -0.03975987 5.235319 -11.3365 5.644539 9.98603e-5 -11.3365 5.644539 5.414974 -10.63396 -0.03975987 4.949551 -10.63396 5.222062 9.95867e-5 -10.63396 5.222062 5.414974 -11.3365 -0.03975987 4.949551 -11.3365 5.222062 9.98603e-5 -11.3365 5.222062 -5.700542 -10.63396 -0.03975987 -5.700542 -10.63396 -0.03975987 -5.235119 -10.63396 5.644539 -5.235119 -10.63396 5.644539 9.95867e-5 -10.63396 5.644539 -5.700542 -11.3365 -0.03975987 -5.700542 -11.3365 -0.03975987 -5.235119 -11.3365 5.644539 -5.235119 -11.3365 5.644539 9.98603e-5 -11.3365 5.644539 -5.414775 -10.63396 -0.03975987 -5.414775 -10.63396 -0.03975987 -4.949352 -10.63396 5.222062 -4.949352 -10.63396 5.222062 9.95867e-5 -10.63396 5.222062 -5.414775 -11.3365 -0.03975987 -5.414775 -11.3365 -0.03975987 -4.949352 -11.3365 5.222062 -4.949352 -11.3365 5.222062 9.98603e-5 -11.3365 5.222062 5.235319 -10.63396 5.644539 5.235319 -10.63396 5.644539 5.235319 -11.3365 5.644539 5.235319 -11.3365 5.644539 5.414974 -10.63396 -0.03975987 4.949551 -10.63396 5.222062 4.949551 -10.63396 5.222062 5.414974 -11.3365 -0.03975987 4.949551 -11.3365 5.222062 4.949551 -11.3365 5.222062 5.481139 -10.69931 -0.02432978</float_array>
+          <technique_common>
+            <accessor source="#Cube_002-mesh-positions-array" count="51" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Cube_002-mesh-normals">
+          <float_array id="Cube_002-mesh-normals-array" count="54">0 -1 0 0 1 -6.34234e-7 0 1 2.61852e-7 0 0.02420872 -0.9997069 -0.07009106 0 -0.9975406 0 0 1 -0.9966648 0 0.08160567 0 0 -1 0.9961109 0 -0.08810883 0 -1 1.07796e-6 0 1 0 0.9966648 0 0.08160567 -0.9961109 0 -0.08810883 -0.9966648 0 0.08160543 0.9961109 0 -0.08810859 0 1 3.44947e-6 0.9966648 0 0.08160543 -0.9961109 0 -0.08810859</float_array>
+          <technique_common>
+            <accessor source="#Cube_002-mesh-normals-array" count="18" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Cube_002-mesh-map-0">
+          <float_array id="Cube_002-mesh-map-0-array" count="216">0 0 0 0 0 0 0.1453824 0.870405 0 0 0 0 0 0 0.1453824 0.870405 0.1037003 0.8996621 0 0 0.7894584 0.5599906 0 0 0.7894584 0.5599906 0 0 0.8596389 0.5599906 0.4496083 0.6163995 0 0 0 0 0.9298195 0.5140293 0.9298195 0 1 0 0.7894584 0.5599906 0.7894584 0 0.8596389 0 0.9298195 0.5140293 1 0.5140293 1 1 0.8596389 0 0.9298195 0 0.9298195 0.5186585 0.8180054 0.6289704 0.7894584 0.6289704 0.7894584 0.5599906 0.9387369 0.6610403 0.4203511 0.6580815 0.4496083 0.6163995 0.3871921 0.09482592 0.4154884 0.09498745 0.4496083 0.6163995 0.1007415 0.3812764 0.142585 0.3803156 0.1453824 0.870405 0.4165362 0.6199854 0.3833771 1.183241 0.35412 1.141559 1 0 0.9298195 0 0.9298195 0.5140293 0.8596389 0 0.7894584 0 0.7894584 0.5599906 1 1 1 0.5140293 0.9298195 0.5140293 0.9298195 0.5186585 0.9298195 0 0.8596389 0 0.9387369 0.6610403 0.9396976 0.6191968 0.4496083 0.6163995 0.1453824 0.870405 0.142585 0.3803156 0.1007415 0.3812764 1 0.5140293 0.9298195 0.5140293 1 0 0.8596389 0.5599906 0.7894584 0.5599906 0.8596389 0 0.9298195 1 0.9298195 0.5140293 1 1 0.8596389 0.5186585 0.8596389 0 0.9298195 0.5186585 0.8180054 0.5599906 0.8180054 0.6289704 0.7894584 0.5599906 0.9396976 0.6191968 0.9387369 0.6610403 0.4496083 0.6163995 0.4203511 0.6580815 0.3871921 0.09482592 0.4496083 0.6163995 0.1037003 0.8996621 0.1007415 0.3812764 0.1453824 0.870405 0.3882399 0.6201469 0.4165362 0.6199854 0.35412 1.141559 1 0.5140293 1 0 0.9298195 0.5140293 0.8596389 0.5599906 0.8596389 0 0.7894584 0.5599906 0.9298195 1 1 1 0.9298195 0.5140293 0.8596389 0.5186585 0.9298195 0.5186585 0.8596389 0 0.4203511 0.6580815 0.9387369 0.6610403 0.4496083 0.6163995 0.1037003 0.8996621 0.1453824 0.870405 0.1007415 0.3812764</float_array>
+          <technique_common>
+            <accessor source="#Cube_002-mesh-map-0-array" count="108" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Cube_002-mesh-vertices">
+          <input semantic="POSITION" source="#Cube_002-mesh-positions"/>
+        </vertices>
+        <triangles material="ferry_white-material" count="5">
+          <input semantic="VERTEX" source="#Cube_002-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Cube_002-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Cube_002-mesh-map-0" offset="2" set="0"/>
+          <p>11 0 0 43 0 1 47 0 2 46 1 3 8 1 4 44 1 5 8 2 6 46 2 7 41 2 8 50 3 9 11 3 10 47 3 11 11 4 12 50 4 13 8 4 14</p>
+        </triangles>
+        <triangles material="ferry_white_paint-material" count="31">
+          <input semantic="VERTEX" source="#Cube_002-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Cube_002-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Cube_002-mesh-map-0" offset="2" set="0"/>
+          <p>49 0 15 47 0 16 43 0 17 27 5 18 13 5 19 10 5 20 2 6 21 3 6 22 1 6 23 16 7 24 19 7 25 37 7 26 5 8 27 7 8 28 6 8 29 20 7 30 30 7 31 35 7 32 29 9 33 28 9 34 38 9 35 26 0 36 36 0 37 38 0 38 24 10 39 34 10 40 33 10 41 21 10 42 23 10 43 33 10 44 10 5 45 13 5 46 42 5 47 9 11 48 12 11 49 11 11 50 48 7 51 19 7 52 16 7 53 17 12 54 18 12 55 15 12 56 29 0 57 39 0 58 49 0 59 46 10 60 34 10 61 24 10 62 22 5 63 27 5 64 10 5 65 0 13 66 2 13 67 1 13 68 32 7 69 16 7 70 37 7 71 4 14 72 5 14 73 6 14 74 25 7 75 20 7 76 35 7 77 39 0 78 29 0 79 38 0 80 28 0 81 26 0 82 38 0 83 23 15 84 24 15 85 33 15 86 31 10 87 21 10 88 33 10 89 40 5 90 10 5 91 42 5 92 8 16 93 9 16 94 11 16 95 45 7 96 48 7 97 16 7 98 14 17 99 17 17 100 15 17 101 43 0 102 29 0 103 49 0 104 41 10 105 46 10 106 24 10 107</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="ferry_car_gate" name="ferry_car_gate" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#Cube_002-mesh" name="ferry_car_gate">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="ferry_white-material" target="#ferry_white-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_white_paint-material" target="#ferry_white_paint-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_blue-material" target="#ferry_blue-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_hazard-material" target="#ferry_hazard-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_railing-material" target="#ferry_railing-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_red-material" target="#ferry_red-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_window-material" target="#ferry_window-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+              <instance_material symbol="ferry_black-material" target="#ferry_black-material">
+                <bind_vertex_input semantic="Cube_002-mesh-map-0" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

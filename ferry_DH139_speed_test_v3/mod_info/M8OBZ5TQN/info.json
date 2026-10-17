@@ -1,0 +1,249 @@
+{
+    "attachments": [
+        {
+            "data_filename": "1177900.png",
+            "original_filename": "Cargo.png",
+            "thumb_filename": "thumbs\/1177900.jpg"
+        },
+        {
+            "data_filename": "1177901.png",
+            "original_filename": "Screenshot2024-07-30144644.png",
+            "thumb_filename": "thumbs\/1177901.jpg"
+        },
+        {
+            "data_filename": "1177902.png",
+            "original_filename": "Screenshot2024-07-31145200.png",
+            "thumb_filename": "thumbs\/1177902.jpg"
+        }
+    ],
+    "resource_id": 32494,
+    "current_version_id": 57920,
+    "download_count": 0,
+    "resource_version_id": 57920,
+    "version_string": "1.0",
+    "last_update": 1730131577,
+    "rating_avg": 0,
+    "rating_count": 0,
+    "rating_sum": 0,
+    "resource_category_id": 6,
+    "resource_date": 1730131577,
+    "review_count": 0,
+    "tag_line": "Ferry from the Port Escape Scenario",
+    "update_count": 0,
+    "path": "M8OBZ5TQN\/57920\/",
+    "filename": "ferry.zip",
+    "title": "Belasco Heavy Industries DH-139",
+    "user_id": 552901,
+    "username": "jgb",
+    "tagid": "M8OBZ5TQN",
+    "message": "Hello! This is the first release of the Belasco Heavy Industries DH-139 Ferry! If you have played the port escape scenario, this is the model from that. It has a functional jbeam, pathways you can walk on, an interior camera, a working(but glitchy) ramp, and working propellers!(thanks to [USER=390433]@Agent_Y[\/USER] )\nThere are currently 2 configurations, the \"Base\" model, and the \"Cargo\" model. for the moment, you can only have up to 2 cargo containers on the boat, as trying to add more will start breaking stuff. \n\nTop speed of about 12mph.\nDual props\n\nYou can sink the ferry by using \"break all breakgroups\"\n\nCREDITS: Model:BeamNG. Jbeam: JGB. Propellers: [USER=390433]@Agent_Y[\/USER] \n\nPlease send me feedback and bug reports!\nI would also love to see screen shots!\n\nIf you would like to support me, or gain early access to some other mods, check out my patreon!\n[URL]https:\/\/www.patreon.com\/jgbmods\/[\/URL]",
+    "category_title": "",
+    "prefix_title": "Beta",
+    "via": "packed by repo on Tue, 29 Oct 2024 12:02:51 GMT",
+    "hashes": [
+        [
+            "vehicles\/ferry\/ferry_car_gate.jbeam",
+            "945160f626cf59b2"
+        ],
+        [
+            "vehicles\/ferry\/ferry_s.dds",
+            "9fab5c6ce438ed5f"
+        ],
+        [
+            "vehicles\/ferry\/ferry_red.dds",
+            "cce3de70fa799e84"
+        ],
+        [
+            "vehicles\/ferry\/ferry_hazard.dds",
+            "7eb2840a99fa930c"
+        ],
+        [
+            "vehicles\/ferry\/lua\/ferry_lua.lua",
+            "441e6876de607dac"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_40ft.jbeam",
+            "52643667ceb4a6cc"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_20ft.jbeam",
+            "ac06e418d8e3cdaa"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_load_RR_alt.jbeam",
+            "a07001a45408cc2f"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_load_R.jbeam",
+            "749f53fa54de066b"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_couplers_R.jbeam",
+            "1c95358c504e1dff"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_lid.jbeam",
+            "5a7aedafd6ebb096"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_load_RR.jbeam",
+            "79e476e8f2824f7e"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_lid_R.jbeam",
+            "cfbb645f51183ccb"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_20ft.jbeam",
+            "b3ac0f5184735ed1"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_load.jbeam",
+            "12b2d85ad4d584f1"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_doors_20ft.jbeam",
+            "60b5989e688255bf"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_20ft_R.jbeam",
+            "206b0fb378cc5f41"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_doors.jbeam",
+            "b0542d8af1bc1be2"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_parts_R.jbeam",
+            "e25f62921134ed95"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_20ft_R.jbeam",
+            "7637eb22c43b0ad7"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_shipping_container_doors_R_20ft.jbeam",
+            "3acc404ce812dad0"
+        ],
+        [
+            "vehicles\/ferry\/container\/containerTrailer_tank_container_parts.jbeam",
+            "7d44d3c419734ed7"
+        ],
+        [
+            "vehicles\/ferry\/Base.png",
+            "40e5fc2877ffb118"
+        ],
+        [
+            "vehicles\/ferry\/ferry_cabin.dae",
+            "209ebc99a4ad0dde"
+        ],
+        [
+            "vehicles\/ferry\/ferry_prop.dae",
+            "fa70d741f017487e"
+        ],
+        [
+            "vehicles\/ferry\/info_Base.json",
+            "4cb2bb2810778d21"
+        ],
+        [
+            "vehicles\/ferry\/ferry_ramp.dae",
+            "88d0235bed0c002a"
+        ],
+        [
+            "vehicles\/ferry\/info_Cargo.json",
+            "43e8cad23cc33a95"
+        ],
+        [
+            "vehicles\/ferry\/ferry_cabin.jbeam",
+            "8020100b92f85465"
+        ],
+        [
+            "vehicles\/ferry\/ferry_white.dds",
+            "2aaa7ddcb03e7769"
+        ],
+        [
+            "vehicles\/ferry\/input_actions_ferry.json",
+            "30d035f6dff66ca8"
+        ],
+        [
+            "vehicles\/ferry\/Base.pc",
+            "46d8986ece7f575a"
+        ],
+        [
+            "vehicles\/ferry\/ferry_n.dds",
+            "c0d0129b1a053cec"
+        ],
+        [
+            "vehicles\/ferry\/info.json",
+            "d38448fdbce8880c"
+        ],
+        [
+            "vehicles\/ferry\/ferry_propeller.jbeam",
+            "43002803f3dca255"
+        ],
+        [
+            "vehicles\/ferry\/ferry_ramp.jbeam",
+            "dcaa96489c5b8607"
+        ],
+        [
+            "vehicles\/ferry\/ferry.cdae",
+            "01c36bcd19ef3256"
+        ],
+        [
+            "vehicles\/ferry\/Cargo.png",
+            "2737eb1d8bf87a1e"
+        ],
+        [
+            "vehicles\/ferry\/Cargo.pc",
+            "1c40baa2d417e9f0"
+        ],
+        [
+            "vehicles\/ferry\/ferry_black.dds",
+            "9ce3cd104548f690"
+        ],
+        [
+            "vehicles\/ferry\/ferry_railing_d.dds",
+            "a675e638f297e6c0"
+        ],
+        [
+            "vehicles\/ferry\/ferry_hull.dae",
+            "ae8901a92f9f3cef"
+        ],
+        [
+            "vehicles\/ferry\/ferry_car_gate.dae",
+            "0496a16017153b07"
+        ],
+        [
+            "vehicles\/ferry\/default.png",
+            "40e5fc2877ffb118"
+        ],
+        [
+            "vehicles\/ferry\/ferry_railing_n.dds",
+            "a9770ce08e8417b0"
+        ],
+        [
+            "vehicles\/ferry\/main.materials.json",
+            "fa7ce40f02285dfe"
+        ],
+        [
+            "vehicles\/ferry\/ferry_cargo.jbeam",
+            "232e7bbe61b149ce"
+        ],
+        [
+            "vehicles\/ferry\/inputmaps\/keyboard.json",
+            "69cbc1ee7937655f"
+        ],
+        [
+            "vehicles\/ferry\/ferry_hull.jbeam",
+            "008be09afcc1bd1b"
+        ],
+        [
+            "vehicles\/ferry\/ferry_white_paint.dds",
+            "7f2235d3a2dd77ca"
+        ],
+        [
+            "vehicles\/ferry\/ferry_blue.dds",
+            "657796a2ef238a5b"
+        ]
+    ]
+}

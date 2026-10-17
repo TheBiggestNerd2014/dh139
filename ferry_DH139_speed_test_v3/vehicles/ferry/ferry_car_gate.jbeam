@@ -1,0 +1,103 @@
+{
+"ferry_car_gate":{
+  "information":{
+    "authors":"JGB",
+    "name":"Ferry Car Gate",
+    "value":100,
+  },
+  "slotType":"ferry_car_gate",
+
+
+
+
+
+
+
+  "flexbodies": [
+         ["mesh", "[group]:", "nonFlexMaterials"],
+     ["ferry_car_gate", ["ferry_car_gate"]],
+    ],
+
+
+//--Nodes--
+  "nodes":[
+    ["id", "posX", "posY", "posZ"],
+    {"collision":true},
+    {"selfCollision":true},
+    {"group":"ferry_car_gate"},
+    {"nodeWeight":300},
+    {"dragCoef":300},
+
+    //LEFT
+    ["fcl0",5.7062,-11.3453,-0.0411],
+    ["fcl1", 5.2306, -11.3453, 5.642],
+        ["fcl2", 5.2306, -10.6308, 5.642],
+        ["fc2", -0.0000, -10.6308, 5.642],
+        ["fc1", 0.0000, -11.3453, 5.642],
+        ["fc1b", 0, -11.3453, 5.2139],
+        ["fc2b", 0, -10.6308, 5.2139],
+        ["fcl1b", 4.9495, -11.3453, 5.2139],
+        ["fcl2b", 4.9223, -10.6308, 5.2139],
+        ["fc0il", 5.3826, -11.3453, -0.0411],
+        ["fcr0", -5.7062, -11.3453, -0.0411],
+
+
+    //LEFTSUPPORT
+
+
+
+    //RIGHT
+    ["fcr0",-5.7062,-11.3453,-0.0411],
+    ["fcr1", -5.2306, -11.3453, 5.642],
+        ["fcr2", -5.2306, -10.6308, 5.642],
+        ["fc2", 0, -10.6308, 5.642],
+        ["fc1", 0, -11.3453, 5.642],
+        ["fc1b", 0, -11.3453, 5.2139],
+        ["fc2b", 0, -10.6308, 5.2139],
+        ["fcr1b", -4.9495, -11.3453, 5.2139],
+        ["fcr2b", -4.9223, -10.6308, 5.2139],
+    ["fc0ir", -5.4242, -11.3453, -0.0411],
+
+
+    //RIGHTSUPPORT
+    {"group":""},
+
+
+  ],
+//--Beams--
+  "beams":[
+    ["id1:", "id2:"],
+    {"disableMeshbreaking":"true"},
+    {"beamSpring":50000000,"beamDamp": 10000, "beamDeform": 500000000,"beamStrength": "FLT_MAX"},
+    //LEFT
+
+
+
+    //RIGHT
+
+
+  ],
+//--Collision Triangles--
+  "triangles":[
+    ["id1:", "id2:", "id3:"],
+    {"dragCoef":30},
+    {"collision":true},
+    {"selfCollision":true},
+    {"groundModel":"metal"},
+
+
+    //LEFT
+
+
+
+
+
+    //RIGHT
+
+
+
+  ],
+
+
+},
+}

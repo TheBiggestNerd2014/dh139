@@ -1,0 +1,8 @@
+{
+"ramp_up"     :{"order":  13, "onChange":"electrics.values.ramp_lift_input = -1.0 * VALUE", "title": "Raise Ramp", "desc": "Raises the ramp"},
+"ramp_down"     :{"order":  14, "onChange":"electrics.values.ramp_lift_input = 1.0 * VALUE", "title": "Lower Ramp", "desc": "Lowers the ramp"}
+
+
+
+}
+

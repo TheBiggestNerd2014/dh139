@@ -1,0 +1,38 @@
+{
+"ferry_cargo":{
+	"information":{
+		"authors":"JGB",
+		"name":"Ferry Cargo",
+		"value":2000,
+	},
+	"slotType":"ferry_cargo",
+	
+	 "slots": [
+    ["type", "default", "description"],
+	["containerTrailer_container_40ft","containerTrailer_shipping_container_40ft","Container", {"nodeOffset":{"x":0,"y":2"z":-1.2}}],
+	["containerTrailer_container_20ft","containerTrailer_shipping_container_20ft","Container",{"nodeOffset":{"x":0,"y":-9"z":-1.2}}],
+    ["containerTrailer_container_20ft_R","","Extra Top Container", {"nodeOffset":{"x":0,"y":-11.7"z":1.4}}],
+    ],
+	
+//--Nodes--
+	"nodes":[
+		["id", "posX", "posY", "posZ"],
+		
+	],
+//--Beams--
+	"beams":[
+		["id1:", "id2:"],
+		
+	],
+	
+	
+	
+	
+//--Collision Triangles--
+	"triangles":[
+		["id1:", "id2:", "id3:"],
+		
+	],
+   
+},
+}

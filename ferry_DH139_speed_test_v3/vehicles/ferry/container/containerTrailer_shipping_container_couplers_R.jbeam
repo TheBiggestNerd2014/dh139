@@ -1,0 +1,147 @@
+{
+"containerTrailer_container_couplers_T_20ft_R": {
+    "information":{
+        "authors":"BeamNG",
+        "name":"Top Couplers",
+        "value":400,
+    },
+    "slotType" : "containerTrailer_container_couplers_T_20ft_R",
+    "flexbodies": [
+         ["mesh", "[group]:", "nonFlexMaterials"],
+         ["container_coupler_body",["container_R","container_tank_frame_R"], [], {"pos":{"x":-1.124,"y": 0.100,"z":2.607},"rot":{"x":0,"y":0,"z":0}}],
+         ["container_coupler_pin", ["container_R","container_tank_frame_R"], [], {"pos":{"x":-1.124,"y": 0.100,"z":2.607},"rot":{"x":0,"y":0,"z":0}}],
+         ["container_coupler_body",["container_R","container_tank_frame_R"], [], {"pos":{"x": 1.124,"y": 0.100,"z":2.607},"rot":{"x":0,"y":0,"z":0}}],
+         ["container_coupler_pin", ["container_R","container_tank_frame_R"], [], {"pos":{"x": 1.124,"y": 0.100,"z":2.607},"rot":{"x":0,"y":0,"z":0}}],
+         ["container_coupler_body",["container_R","container_tank_frame_R"], [], {"pos":{"x":-1.124,"y": 5.995,"z":2.607},"rot":{"x":0,"y":180,"z":0}}],
+         ["container_coupler_pin", ["container_R","container_tank_frame_R"], [], {"pos":{"x":-1.124,"y": 5.995,"z":2.607},"rot":{"x":0,"y":180,"z":0}}],
+         ["container_coupler_body",["container_R","container_tank_frame_R"], [], {"pos":{"x": 1.124,"y": 5.995,"z":2.607},"rot":{"x":0,"y":180,"z":0}}],
+         ["container_coupler_pin", ["container_R","container_tank_frame_R"], [], {"pos":{"x": 1.124,"y": 5.995,"z":2.607},"rot":{"x":0,"y":180,"z":0}}],
+    ],
+    "triggers":[
+        ["id",           "label",         "idRef:","idX:","idY:", "type","size",                         "baseRotation",         "rotation",            "translation",         "baseTranslation"],
+        ["cpR01l_v_R", "Attach Container Top", "outR7l","ccR34l","outR3l", "box", {"x":0.19, "y":0.20, "z":0.025}, {"x":90, "y":0, "z":0},  {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y": 0, "z": 0.000}],
+        ["cpR01r_v_R", "Attach Container Top", "outR7r","ccR34r","outR3r", "box", {"x":0.19, "y":0.20, "z":0.025}, {"x":90, "y":0, "z":0},  {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y": 0, "z": 0.025}],
+        ["cpR02l_v_R", "Attach Container Top", "outR1l","ccR31l","outR2l", "box", {"x":0.19, "y":0.20, "z":0.025}, {"x":90, "y":0, "z":0},  {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y": 0, "z": 0.025}],
+        ["cpR02r_v_R", "Attach Container Top", "outR1r","ccR31r","outR2r", "box", {"x":0.19, "y":0.20, "z":0.025}, {"x":90, "y":0, "z":0},  {"x":0, "y":0, "z":0}, {"x":0, "y":0, "z":0}, {"x":0, "y": 0, "z": 0.000}],
+    ],
+    "triggerEventLinks":[
+        ["triggerId:triggers", "action", "targetEventId:events"],
+        ["cpR01l_v_R", "action0", "containerAttachT_R"],
+        ["cpR01r_v_R", "action0", "containerAttachT_R"],
+        ["cpR02l_v_R", "action0", "containerAttachT_R"],
+        ["cpR02r_v_R", "action0", "containerAttachT_R"],
+    ],
+    "events":[
+        ["id", "title", "desc"],
+        ["containerAttachT_R", "ui.inRputActions.container.attach.title", "ui.inRputActions.container.attach.description",  {"onDown":"beamstate.toggleCouplers('cp_v', true)"}],
+    ],
+    "nodes": [
+         ["id", "posX", "posY", "posZ"],
+
+         //vertical couplers with air gap to prevent collision fightinRg
+         {"group":"container_couplers_T"},
+         {"frictionCoef":0.1},
+         {"nodeMaterial":"|NM_METAL"},
+         {"collision":true},
+         {"selfCollision":true},
+         {"nodeWeight":15},
+         ["cpR11l_v", -1.124,6.012, 2.665, {"couplerTag":"cp_v","couplerStrength":501000,"couplerRadius":1,"couplerStartRadius":0.1}],
+         ["cpR11r_v",1.124,6.012, 2.665, {"couplerTag":"cp_v","couplerStrength":501000,"couplerRadius":1,"couplerStartRadius":0.1}],
+         ["cpR12l_v", -1.124, 0.084, 2.665, {"couplerTag":"cp_v","couplerStrength":501000,"couplerRadius":1,"couplerStartRadius":0.1}],
+         ["cpR12r_v",1.124, 0.084, 2.665, {"couplerTag":"cp_v","couplerStrength":501000,"couplerRadius":1,"couplerStartRadius":0.1}],
+
+         {"group":""},
+    ],
+    "beams": [
+          ["id1:", "id2:"],
+          {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1, "beamShortBound":1},
+
+          //--COUPLERS--
+          {"beamSpring":5001000,"beamDamp":3000},
+          {"beamDeform":150000,"beamStrength":"FLT_MAX"},
+
+          //to other couplers
+          ["cpR11l_h", "cpR11l_v"],
+          ["cpR11r_h", "cpR11r_v"],
+          ["cpR12l_h", "cpR12l_v"],
+          ["cpR12r_h", "cpR12r_v"],
+
+          //to clamps
+          {"beamSpring":3001000,"beamDamp":2000},
+          {"beamDeform":150000,"beamStrength":"FLT_MAX"},
+
+          //to clamps
+          ["cpR11l_v", "ccR31l"],
+          ["cpR11l_v", "ccR21l"],
+          ["cpR11l_v", "ccR32l"],
+          ["cpR11l_v", "ccR30l"],
+
+          ["cpR11r_v", "ccR31r"],
+          ["cpR11r_v", "ccR21r"],
+          ["cpR11r_v", "ccR32r"],
+          ["cpR11r_v", "ccR30r"],
+
+          ["cpR12l_v", "ccR34l"],
+          ["cpR12l_v", "ccR24l"],
+          ["cpR12l_v", "ccR33l"],
+          ["cpR12l_v", "ccR30l"],
+
+          ["cpR12r_v", "ccR34r"],
+          ["cpR12r_v", "ccR24r"],
+          ["cpR12r_v", "ccR33r"],
+          ["cpR12r_v", "ccR30r"],
+
+          //to body
+          {"beamSpring":3001000,"beamDamp":2500},
+          {"beamDeform":150000,"beamStrength":"FLT_MAX"},
+
+          ["cpR11l_v", "outR1l"],
+          ["cpR11l_v", "outR11l"],
+          ["cpR11l_v", "outR2l"],
+          ["cpR11l_v", "outR1"],
+
+          ["cpR11r_v", "outR1r"],
+          ["cpR11r_v", "outR11r"],
+          ["cpR11r_v", "outR2r"],
+          ["cpR11r_v", "outR1"],
+
+          ["cpR12l_v", "outR7l"],
+          ["cpR12l_v", "outR17l"],
+          ["cpR12l_v", "outR3l"],
+          ["cpR12l_v", "outR7"],
+
+          ["cpR12r_v", "outR7r"],
+          ["cpR12r_v", "outR17r"],
+          ["cpR12r_v", "outR3r"],
+          ["cpR12r_v", "outR7"],
+
+          //to interior
+          {"beamSpring":121000,"beamDamp":1500},
+          {"beamDeform":120000,"beamStrength":"FLT_MAX"},
+          {"optional":true},
+
+          ["cpR11l_v", "inR1l"],
+          ["cpR11l_v", "inR11l"],
+          ["cpR11l_v", "inR2l"],
+          ["cpR11l_v", "inR1"],
+
+          ["cpR11r_v", "inR1r"],
+          ["cpR11r_v", "inR11r"],
+          ["cpR11r_v", "inR16"],
+          ["cpR11r_v", "inR1"],
+
+          ["cpR12l_v", "inR7l"],
+          ["cpR12l_v", "inR17l"],
+          ["cpR12l_v", "inR6l"],
+          ["cpR12l_v", "inR7"],
+
+          ["cpR12r_v", "inR7r"],
+          ["cpR12r_v", "inR17r"],
+          ["cpR12r_v", "inR6r"],
+          ["cpR12r_v", "inR7"],
+
+          {"optional":false},
+          {"beamPrecompression":1, "beamType":"|NORMAL", "beamLongBound":1, "beamShortBound":1},
+    ],
+},
+}
