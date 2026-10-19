@@ -9,8 +9,9 @@
     "flexbodies": [
         ["mesh", "[group]:", "nonFlexMaterials"],
         // PropellerR mesh sits on the port nodes, PropellerL on the starboard nodes.
-        ["PropellerR", ["propellerL"]],
-        ["PropellerL", ["propellerR"]],
+        // The hub nodes stay in the mesh but are not in the spinning group.
+        ["PropellerR", ["propellerL", "propHubL"]],
+        ["PropellerL", ["propellerR", "propHubR"]],
         // Housings use the shaft nodes for shape only. They are not beamed to
         // the shafts, so a spinning blade cannot rattle the strut.
         ["PropMountR", ["propMountL", "propAxleL"]],
@@ -274,7 +275,7 @@
     },
     "rotators":[
         ["name","[group]:","node1:","node2:","nodeArm:","wheelDir"],
-        {"radius":0.7526},
+        {"radius":1.0952},
         {"rotatorType":"rotator"},
         {"enableBrakeThermals":false},
         {"brakeTorque":5000},
@@ -315,9 +316,13 @@
         {"group":"propAxleR"},
         ["bprax0", -1.6000, 20.2498, -2.8600],
         ["bprax1", -1.6000, 18.0690, -2.8600],
+        // On the shaft axis. A spinning group cannot contain these: the rotator
+        // has no radius there, and it was throwing the whole stern back and forth.
+        {"nodeWeight":40},
+        {"group":"propHubL"},
+        ["bpl2", 1.6000, 20.3855, -2.8600],
         {"nodeWeight":25},
         {"group":"propellerL"},
-        ["bpl2", 1.6000, 20.3855, -2.8600],
         ["bpl1", 1.6000, 20.3855, -3.9552],
         ["bpl3", 1.6000, 20.3855, -1.7648],
         ["bpl4", 2.6952, 20.3855, -2.8600],
@@ -326,8 +331,11 @@
         ["bpl8", 1.6000, 19.8136, -1.7648],
         ["bpl0", 0.5048, 20.3855, -2.8600],
         ["bpl9", 2.6952, 19.8136, -2.8600],
-        {"group":"propellerR"},
+        {"nodeWeight":40},
+        {"group":"propHubR"},
         ["bpr2", -1.6000, 20.3855, -2.8600],
+        {"nodeWeight":25},
+        {"group":"propellerR"},
         ["bpr1", -1.6000, 20.3855, -3.9552],
         ["bpr3", -1.6000, 20.3855, -1.7648],
         ["bpr4", -2.6952, 20.3855, -2.8600],
@@ -430,6 +438,13 @@
           ["bpr3", "bprax1"],
           ["bpr1", "bprax1"],
           ["bprax0", "bprax1"],
+
+          // Hub centers are fixed to the shaft. They are not spun.
+          {"beamSpring":600000,"beamDamp":2000},
+          ["bpl2", "bplax0"],
+          ["bpl2", "bplax1"],
+          ["bpr2", "bprax0"],
+          ["bpr2", "bprax1"],
 
           // Housings are a static truss on the hull. They do not share beams
           // with the shafts. The old links, plus steering hydros on the same
