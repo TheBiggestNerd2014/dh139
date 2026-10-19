@@ -1,0 +1,37 @@
+{
+"parts":{
+  "propellerMount":"propellerMount",
+  "propeller":"propeller",
+  "propeller2":"propeller2",
+  "Interior":"",
+  "propellerMount2":"propellerMount2",
+  "boteBody":"boteBody",
+  "boteStabilizer2":"top speed boteStabilizer2",
+  "boteStabilizer":"top speed boteStabilizer",
+  "boteSteer":"boteSteer",
+  "Engine":"TwinEngineNA"
+},
+"colors":[
+  [
+    0.0900000036,
+    0.209999993,
+    0.469999999,
+    1.20000005
+  ],
+  [
+    0.0900000036,
+    0.209999993,
+    0.469999999,
+    1.20000005
+  ],
+  [
+    0.0900000036,
+    0.209999993,
+    0.469999999,
+    1.20000005
+  ]
+],
+"model":"bote",
+"format":2,
+"licenseName":"8778-pickup"
+}

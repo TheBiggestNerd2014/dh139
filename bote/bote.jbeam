@@ -1,0 +1,24 @@
+{
+"bote": {
+    "information":{
+        "authors":"Whomst",
+        "name":"Speedboat",
+    },
+
+    "slotType" : "main",
+
+    "slots": [
+        ["type", "default", "description"],
+        //bodywork
+        ["boteBody","boteBody", "Body", {"coreSlot":true}],
+    ],
+
+    "scaledragCoef":1.2,
+
+    "controller": [
+        ["fileName"],
+        ["vehicleController", {}],
+		
+    ],
+	}
+}

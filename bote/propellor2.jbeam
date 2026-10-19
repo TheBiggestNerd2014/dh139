@@ -1,0 +1,118 @@
+{
+"propeller2": {
+    "information":{
+        "authors":"Whomst",
+        "name":"propeller2",
+        "value":420000,
+    },
+    "slotType" : "propeller2",
+	
+	 "powertrain" : [
+        ["type",             "name",              "inputName",         "inputIndex"],
+			["shaft", "propeller2", "rightPropShaft", 1,{"connectedWheel":"Propeller2","gearRatio": 0.8}],
+			],
+	"rotators":[
+		["name","[group]:","node1:","node2:","nodeS","nodeArm:","wheelDir"],
+		{"radius":0.1},
+		{"brakeTorque":900},
+		{"parkingTorque":1200},
+		{"propulsed":1},
+		{"axleBeams":["PML0","PML6"]},
+        ["Propeller2", ["propeller2"], "PML6", "PML0", 9999, "PML6", -1 {"torqueArm":"PML6","speedo":false}],
+		{"axleBeams":[]},
+	],
+	
+	"flexbodies": [
+        ["mesh", "[group]:", "nonFlexMaterials"],
+		["PropellerR",["propeller2"]],
+
+		],
+	"nodes":[
+		["id", "posX", "posY", "posZ"],
+		{"group":"propellerBase"},
+		{"nodeWeight":10}
+		
+		["PL2", 0.39900, -5.43400, -0.05000],
+		{"group":"propeller2"},
+		["PL1", 0.39900, -5.43400, -0.27600],
+		["PL3", 0.39900, -5.43400, 0.17600],
+		["PL4", 0.62500, -5.43400, -0.05000],
+		["PL5", 0.17300, -5.31600, -0.05000],
+		["PL6", 0.39900, -5.31600, -0.27600],
+		//["PML0", -0.39900, -5.40600, 0.25900],
+		["PL8", 0.39900, -5.31600, 0.17600],
+		["PL0", 0.17300, -5.43400, -0.05000],
+		["PL9", 0.62500, -5.31600, -0.05000],
+		{"group":""},
+	],
+	"beams":[
+		["id1:", "id2:"],
+		{"beamDeform":"FLT_MAX"},
+		{"beamSpring":14001000},
+		["PL2","PL0"],
+		["PML0","PL4"],
+		["PL4","PL3"],
+		["PL3","PL8"],
+		["PL8","PL9"],
+		["PL9","PL4"],
+		["PL8","PL5"],
+		["PML0","PL3"],
+		["PML0","PL9"],
+		["PL5","PML0"],
+		["PML0","PL6"],
+		["PML0","PL0"],
+		["PL6","PL9"],
+		["PL5","PL6"],
+		["PL1","PL6"],
+		["PL8","PML0"],
+		["PL2","PML0"],
+		["PL3","PL9"],
+		["PL1","PL5"],
+		["PL2","PL3"],
+		["PL1","PL2"],
+		["PL4","PL1"],
+		["PML0","PL1"],
+		["PL4","PL2"],
+		["PL4","PL6"],
+		["PL5","PL0"],
+		["PL0","PL1"],
+		["PL0","PL3"],
+		["PL0","PL8"],
+		["PML0","PL0"],
+		["PL0","PL8"],
+		["PL8","PML0"],
+		["PL3","PML0"],
+		["PML0","PL9"],
+		["PL9","PL3"],
+		["PL4","PL6"],
+		["PL6","PML0"],
+		["PML0","PL4"],
+		["PL5","PML0"],
+		["PML0","PL1"],
+		["PL1","PL5"],
+//connector
+            ["PL6", "PML6"],
+            ["PML6", "PL5"],
+            ["PL8", "PML6"],
+            ["PL9", "PML6"],
+            ["PL0", "PML6"],
+            ["PML6", "PL4"],
+            ["PL3", "PML6"],
+            ["PL1", "PML6"],
+
+	],
+	"triangles":[
+		["id1:", "id2:", "id3:"],
+		{"groundModel":"metal"},			
+		{"dragCoef":6},
+        {"liftCoef":0},		
+		["PL0","PML0","PL8"],
+		["PL9","PL3","PML0"],
+		["PL6","PL4","PML0"],
+		["PML0","PL5","PL1"],
+		
+		]
+		
+	}
+	
+}

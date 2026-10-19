@@ -1,0 +1,217 @@
+ {
+
+
+"Engine": {
+    "information":{
+        "authors":"Whomst",
+        "name":"Engine",
+        "value":24000,
+    }
+    "slotType" : "Engine",
+    "powertrain": [
+        ["type", "name", "inputName", "inputIndex"],
+        ["combustionEngine", "mainEngine", "dummy", 0],
+		 ["torqueConverter", "torqueConverter", "mainEngine", 1],
+		  ["automaticGearbox", "gearbox", "torqueConverter", 1],
+		["differential", "diff", "gearbox", 1, {"diffType":"locked", "diffTorqueSplit":0.5, "gearRatio":1.0, "friction":0}]
+		["shaft", "leftPropShaft", "diff", 1],
+		["shaft", "rightPropShaft", "diff", 2],
+    ],
+	"torqueConverter": {
+
+    "converterStiffness":25,
+	},
+	  
+
+"gearbox": {
+    "gearRatios":[-1, 0, 1]
+    "parkLockTorque":2000,
+    "oneWayViscousCoef":8,
+    "friction": 1,
+},
+	"flexbodies": [
+        ["mesh", "[group]:", "nonFlexMaterials"],
+		["NAengine",["boteBody"]],	
+		["NAengine2",["boteBody"]],		
+],		
+	
+	"props": [
+        ["func",     "mesh",      "idRef:", "idX:", "idY:", "baseRotation",            "rotation",            "translation", "min", "max", "offset", "multiplier"],
+        //steering wheel
+		["throttle"     ,"butterflyValveL1", "BL30", "BL51", "BC32",  {"x":90, "y":270, "z":210} , {"x":0, "y":90, "z":0}    , {"x":0.0, "y":0, "z":0}, 0, 1, 0, 1],
+		["throttle"     ,"butterflyValveR1", "BL30", "BL51", "BC32",  {"x":90, "y":90, "z":210} , {"x":0, "y":90, "z":0}    , {"x":0.0, "y":0, "z":0}, 0, 1, 0, 1],
+	],
+	
+	"mainEngine": {
+			"torque":[
+				["rpm", "torque"]
+								[100, 19.46],
+
+				[500, 1309.46],
+				[900, 1719.18],
+				[1000, 1768.28],
+				[1100, 1811.56],
+				[1200, 1858.7],
+				[1300, 1891.96],
+				[1400, 1921.9],
+				[1500, 1954.92],
+				[1600, 1989.94],
+				[1700, 2011.86],
+				[1800, 2032.12],
+				[1900, 2053.64],
+				[2000, 2065.94],
+				[2100, 2082.7],
+				[2200, 2101.62],
+				[2300, 2119.08],
+				[2400, 2135.4],
+				[2500, 2160.44],
+				[2600, 2185.86],
+				[2700, 2211.24],
+				[2800, 2222.12],
+				[2900, 2245.86],
+				[3000, 2261.08],
+				[3100, 2274.08],
+				[3200, 2290.72],
+				[3300, 2305.18],
+				[3400, 2330.86],
+				[3500, 2355.22],
+				[3600, 2380.54],
+				[3700, 2394.9],
+				[3800, 2407.98],
+				[3900, 2421.34],
+				[4000, 2441.82],
+				[4100, 2458.9],
+				[4200, 2485.42],
+				[4300, 2511.62],
+				[4400, 2539.76],
+				[4500, 2561.6],
+				[4600, 2583.18],
+				[4700, 2604.5],
+				[4800, 2621.08],
+				[4900, 2630.74],
+				[5000, 2633.76],
+				[5100, 2653.78],
+				[5200, 2668.68],
+				[5300, 2673.12],
+				[5400, 2688.74],
+				[5500, 2695.12],
+				[5600, 2703.74],
+				[5700, 2712.4],
+				[5800, 2725.56],
+				[5900, 2738.92],
+				[6000, 2757.54],
+				[6100, 2771.92],
+				[6200, 2784.58],
+				[6300, 2791.56],
+				[6400, 2812.68],
+				[6500, 2820.34],
+				[6600, 2821.08],
+				[6700, 2820.7],
+				[6800, 2819.1],
+				[6900, 2814.04],
+				[7000, 2807.66],
+				[7100, 2799.94],
+				[7200, 2792.88],
+				[7300, 2779.48],
+				[7400, 2765.84],
+				[7500, 2750.1],
+				[7600, 2735.04],
+				[7700, 2719.34],
+				[7800, 2702.44],
+				[7900, 2486.72],
+				[8000, 2070.24],
+
+
+			],
+			//rev limiters have some options
+			//"revLimiterType":"rpmDrop", //Default choice. waits for rpm to fall before torque comes back. Can have long delays in high gears. Uses "revLimiterRPMDrop".
+			//"revLimiterType":"timeBased", //Waits for "revLimiterCutTime" time window, but also has "revLimiterMaxRPMDrop" fallback, if the rpm falls too much in the time window.
+			//"revLimiterType:"soft", //Tapers the the torque off in some range of rpm defined by "revLimiterSmoothOvershootRPM"
+			//"hasRevLimiter":false, //Disables rev limiter
+			"revLimiterRPMDrop":100,
+			//engine performance
+			"idleRPM":874.5608470893,
+			"maxRPM":8400, //Max RPM before overrev damage is likely
+			"inertia":0.89714758237396, //(kg*m/s^2)
+			"friction":48.755890489502, //Constant friction torque (Nm)
+			"dynamicFriction":0.11720576862919, //Friction torque that increases with engine speed (Nm/rad/s)
+
+
+
+			"waterDamage": {"[engineGroup]:":["engine_intake"]}, //Engine hydrolocks when nodes in this group go under water
+			"radiator": {"[engineGroup]:":["radiator"]}, //Radiator steam is emitted from nodes in this group
+			"engineBlock": {"[engineGroup]:":["engine_block"]}, //Engine thermal mass is taken from nodes in this group
+			//"fuel": {"[engineGroup]:":["fuel"]},
+			"breakTriggerBeam":"engine", //Engine breaks if beam with this name is broken
+
+			"soundConfig": "soundConfig", //What section name to look for for engine sound information
+			
+			//Exhaust Settings
+			"particulates":0.097499997913837,
+			//Exhaust Sound/back fires
+			"instantAfterFireCoef": 1.1062499843538,
+			"sustainedAfterFireCoef": 1.6593749765307,
+			"instantVolumeCoef":0.75,
+			"sustainedVolumeCoef ":0.75,
+			"shiftVolumeCoef ":2,
+
+			//cooling and oil system,
+			"thermalsEnabled":true,
+			"engineBlockMaterial":"aluminium", //"aluminum", "aluminium", "iron"
+
+
+			//cooling system
+			"radiatorArea":1.5705024127428,
+			"radiatorEffectiveness":20000,
+			"coolantVolume":8.6191147328,
+			"radiatorFanType":"electric",
+			"radiatorFanTemperature":105
+			"radiatorFanMaxAirSpeed":2,
+			"thermostatTemperature":90,
+
+			//oil radiator
+			"oilRadiatorArea":8.6191147328,
+			"oilRadiatorEffectiveness":2000,
+			"oilThermostatTemperature":100,
+			"oilVolume":6.7143360496, //Litres
+
+			//engine durability
+			"cylinderWallTemperatureDamageThreshold":310, //Cylinder temp (C) over which damage starts to occur to rings
+			"headGasketDamageThreshold":1700000, //Durability of headgasket
+			"pistonRingDamageThreshold":1700000, //Durability of headgasket
+			"connectingRodDamageThreshold":2200000, //Durability of connecting rods
+
+			//"energyStorage": "mainTank", //Name of the fuel tank
+			"requiredEnergyType":"gasoline", //Type of fuel required
+			"burnEfficiency": [ //How much fuel energy is converted to work in the cylinders (does not account for engine friction losses)
+				[0.00, 0.13],
+				[0.05, 0.28],
+				[0.40, 0.37],
+				[0.70, 0.45],
+				[1.00, 0.31],
+
+			],
+			"torqueReactionNodes:":["BL20", "BL12", "BC10"]
+		},
+		"soundConfig": {
+			"sampleName": "D72C3028413BFD47521906B7C22BF610",
+			"mainGain": 7.5,
+			"maxLoadMix": 1,
+			"minLoadMix": 0,
+			"onLoadGain":1,
+			"offLoadGain":1,
+			"eqLowGain": 0,
+			"eqLowFreq": 400,
+			"eqLowWidth": 0,
+			"eqHighGain": 0,
+			"eqHighFreq": 6000,
+			"eqHighWidth": 0.5,
+			"lowCutFreq":80,
+			//"fundamentalFrequencyCylinderCount":4,
+			"eqFundamentalGain": 0,
+		},
+
+		
+	},		
+
+	}

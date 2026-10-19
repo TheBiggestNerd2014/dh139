@@ -1,0 +1,141 @@
+{
+"propellerMount2": {
+    "information":{
+        "authors":"Whomst",
+        "name":"propellerMount2",
+        "value":420000,
+    },
+    "slotType" : "propellerMount2",
+    "slots": [
+        ["type", "default", "description"],
+		["propeller2","propeller2","propeller2"],
+		["boteStabilizer2","top speed boteStabilizer2","boteStabilizer"],
+		],
+	"flexbodies": [
+        ["mesh", "[group]:", "nonFlexMaterials"],
+		["PropMountR",["propellerMount2"]],
+
+		],
+	"nodes":[
+		["id", "posX", "posY", "posZ"],
+		{"group":"propellerMount2"},
+		{"nodeWeight":50.0},
+		["PML0", 0.39900, -5.40600, -0.05000],
+		//["PML1", 0.39900, -5.40600, 0.47300],
+		["PML2", 0.20600, -5.16100, -0.05000],
+		["PML3", 0.20600, -5.16100, 0.16400],
+		["PML4", 0.61100, -5.16100, -0.05000],
+		["PML5", 0.61100, -5.16100, 0.16400],
+		{"nodeWeight":250.0},
+		["PML6", 0.39900, -4.95600, -0.05000],
+		["PML7", 0.39900, -4.95600, 0.16400],
+		{"group":""},
+	],
+	"hydros": [
+        ["id1:","id2:"],
+        {"beamSpring":126501000,"beamDamp":50,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+        {"beamPrecompression":1.00},
+       
+        ["PML2","BC4",{"factor":0.5,"steeringWheelLock":460,"inRate":0.4,"outRate":0.4}],
+
+
+        {"beamPrecompression":1},
+]
+	"beams":[
+		["id1:", "id2:"],
+		{"group":"propellerMount2"},
+		{"beamSpring":18501000,"beamDamp":50,"beamDeform":"FLT_MAX"},
+		["PML4","PML0"],
+		["PML7","PML6"],
+		["PML6","PML0"],
+		["PML7","PML5"],
+		["PML5","PML0"],
+		["PML5","PML3"],
+		["PML3","PML7"],
+		["PML5","PML4"],
+		["PML6","PML4"],
+		["PML5","PML6"],
+		["PML3","PML2"],
+		["PML2","PML6"],
+		["PML2","PML0"],
+		["PML0","PML3"],
+		["PML3","PML6"],
+		["PML7","PML0"],
+		["PML4","PML2"],
+		["PML5","PML2"],
+		["PML3","PML4"],
+		{"group":"connector"},
+		{"beamSpring":4000000,"beamDamp":1225},
+		["PML7", "BR13"],
+        ["PML6", "BR13"],
+        ["BR15", "PML6"],
+        ["PML7", "BR15"],
+		["BR19", "PML7"],
+		["PML6", "BR19"],
+		["PML7", "BC10"],
+		["PML6", "BC4"],
+		["BC18", "PML7"],
+		["PML6", "BC18"],
+		["PML7", "BR0"],
+		["PML6", "BC9"],
+		["PML7", "BC9"],
+		["PML6", "BR2"],
+		["PML7", "BR2"],
+
+
+
+	{"group":""},
+
+	],
+	
+	}
+"top speed boteStabilizer2": {
+    "information":{
+        "authors":"Whomst",
+        "name":"top speed boteStabilizer",
+        "value":420000,
+    },
+    "slotType" : "boteStabilizer2",
+	"triangles":[
+		["id1:", "id2:", "id3:"],
+		{"groundModel":"metal"},			
+		{"dragCoef":4},
+		{"liftCoef":0},
+		["PML6","PML0","PML7"],
+		],
+	}
+"low speed boteStabilizer2": {
+    "information":{
+        "authors":"Whomst",
+        "name":"low speed boteStabilizer",
+        "value":420000,
+    },
+    "slotType" : "boteStabilizer2",
+	"triangles":[
+		["id1:", "id2:", "id3:"],
+		{"groundModel":"metal"},			
+		{"dragCoef":100},
+		{"liftCoef":0},
+		["PML6","PML0","PML7"],
+		],
+	}
+"adjustable boteStabilizer": {
+    "information":{
+        "authors":"Whomst",
+        "name":"adjustable boteStabilizer",
+        "value":420000,
+    },
+    "slotType" : "boteStabilizer2",
+	"variables": [
+        ["name", "type", "unit", "category", "default", "min", "max", "title", "description"],
+        ["$drag", "range", "dragCoef", "boteStabilizer", 40, 1, 100, "boteStabilizer drag", "higher for more control at lower speeds, at the expense of top speed", ],
+    ],
+	"triangles":[
+		["id1:", "id2:", "id3:"],
+		{"groundModel":"metal"},			
+		{"dragCoef":"$drag"},
+		{"liftCoef":0},
+		["PML6","PML0","PML7"],
+		],
+	}
+}

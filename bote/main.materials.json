@@ -1,0 +1,279 @@
+{
+  "boteHull" : {
+    "name" : "boteHull",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.5, 0.5, 0.5, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 1,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteHullMaterial",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+  "boteBody" : {
+    "name" : "botebody",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 1, 0.2, 0.2, 1 ],
+        "pixelSpecular" : false,
+        "specularPower" : 0,
+        "useAnisotropic" : false
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteBodyMaterial",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+   "boteInt" : {
+    "name" : "boteInt",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.6, 0.6, 0.6, 1 ],
+        "pixelSpecular" : false,
+        "specularPower" : 0,
+        "useAnisotropic" : false
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : false,
+    "mapTo" : "BoteInterior",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+  
+  "BotePropellerMaterial" : {
+    "name" : "BotePropeller",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.5, 0.5, 0.5, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 0.5,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BotePropeller",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  },
+  
+   "BoteIntake" : {
+    "name" : "BoteIntake",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.2, 0.2, 0.2, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 0.5,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteIntake",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+   
+   "BoteInjector" : {
+    "name" : "BoteInjector",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.2, 0.2, 0.2, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 0.5,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteInjector",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  },   
+  
+   "BoteGauges" : {
+    "name" : "BoteGauges",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.1, 0.1, 0.1, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 0.5,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0.6,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteGauges",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+ 
+   "BoteEngineExhaust" : {
+    "name" : "EngineExhaust",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.2, 0.2, 0.2, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 0.5,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteExhaustMaterial",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+ 
+  "BoteEngineBlockMaterial" : {
+    "name" : "EngineBlock",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.3, 0.3, 0.3, 0.3 ],
+        "pixelSpecular" : true,
+        "specularPower" : 0.5,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BoteEngineBlock",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle"
+  }, 
+ 
+    "bote_glass" : {
+    "name" : "bote_glass",
+    "class" : "Material",
+    "persistentId" : "e90caaa9-d592-4613-b79a-a23fcf3803af",
+    "Stages" : [
+      {
+        "colorMap" : "vehicles/bote/windscreen.dds",
+        "diffuseColor" : [ 1, 1.5, 1.5, 1 ],
+        "normalMap" : "vehicles/common/null_n.dds",
+        "opacityMap" : "vehicles/bote/windscreen.dds",
+        "pixelSpecular" : true,
+        "reflectivityMap" : "vehicles/common/glass_base.dds",
+        "specularMap" : "vehicles/common/null.dds",
+        "specularPower" : 128,
+        "useAnisotropic" : true
+      },
+      {
+        "colorMap" : "vehicles/bote/windscreen.dds",
+        "diffuseColor" : [ 0.5, 0.5, 0.5, 0.75 ]
+      },
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "castShadows" : false,
+    "dynamicCubemap" : true,
+    "mapTo" : "glass",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle",
+    "translucent" : true
+  },
+  
+  "bote_glass_int" : {
+    "name" : "bote_glass_int",
+    "class" : "Material",
+    "persistentId" : "112e1d1f-f382-4d25-868f-9e3574e916d8",
+    "Stages" : [
+      {
+        "colorMap" : "vehicles/bote/windscreen.dds",
+        "diffuseColor" : [ 0, 0, 0, 0.4 ],
+        "pixelSpecular" : true,
+        "specularMap" : "vehicles/common/null.dds",
+        "specularPower" : 128,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "castShadows" : false,
+    "mapTo" : "glass_int",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle",
+    "translucent" : true
+  },
+  
+  "BotePropBase" : {
+    "name" : "BotePropBase",
+    "class" : "Material",
+    "persistentId" : "9e4868fd-5542-4e4f-8033-360ce22a3394",
+    "Stages" : [
+      {
+        "diffuseColor" : [ 0.2, 0.2, 0.2, 1 ],
+        "pixelSpecular" : true,
+        "specularPower" : 1,
+        "useAnisotropic" : true
+      },
+      {},
+      {},
+      {}
+    ],
+    "alphaRef" : 0,
+    "dynamicCubemap" : true,
+    "mapTo" : "BotePropBase",
+    "materialTag0" : "beamng",
+    "materialTag1" : "vehicle",
+  }
+  
+  
+  
+  }
