@@ -9,6 +9,10 @@ local wasParked = false
 local overrideActive = false
 local physicsSteps = 0
 local holdWait = 0
+local wakeNodes = nil
+local wakeHooked = false
+local wakeWait = 0
+local lastWake = nil
 
 -- About 0.4 m/s². From 10 mph that is roughly ten seconds to stop,
 -- light enough that cars on the deck stay put.
@@ -37,6 +41,12 @@ local function onReset()
 	wasParked = false
 	physicsSteps = 0
 	holdWait = 0
+	wakeNodes = nil
+	wakeWait = 0
+	lastWake = nil
+	if obj and obj.queueGameEngineLua then
+		pcall(obj.queueGameEngineLua, obj, "local w = extensions.dh142_wake or dh142_wake; if w and w.clear then w.clear() end")
+	end
 end
 
 local function parkedFlag(value)
@@ -206,6 +216,88 @@ local function update(dt)
 	updateParkAndEngine(dt)
 end
 
+local WAKE_NODES = {
+	{name = "fh115", scale = 1.6},
+	{name = "fhl114", scale = 1.05},
+	{name = "fhr114", scale = 1.05},
+	{name = "fh6", scale = 0.7},
+}
+
+local function cacheWakeNodes()
+	wakeNodes = {}
+	if not v or not v.data or not v.data.nodes then return end
+	local want = {}
+	for _, entry in ipairs(WAKE_NODES) do
+		want[entry.name] = true
+	end
+	for cid, n in pairs(v.data.nodes) do
+		if type(n) == "table" and n.name and want[n.name] then
+			wakeNodes[n.name] = n.cid or cid
+		end
+	end
+end
+
+local function nodeWorld(cid)
+	local pos = obj:getPosition()
+	local rel = obj:getNodePosition(cid)
+	if not pos or not rel then return nil end
+	return pos.x + rel.x, pos.y + rel.y, pos.z + rel.z
+end
+
+-- Drop foam at the bow and across the stern once the hull has moved a few
+-- metres. The patches stay in the world after the boat has gone by.
+local function updateWake(dt)
+	wakeWait = wakeWait + (dt or 0)
+	if wakeWait < 0.25 then return end
+	wakeWait = 0
+	if not obj or not obj.queueGameEngineLua then return end
+
+	local vel = obj:getVelocity()
+	local fwd = obj.getDirectionVector and obj:getDirectionVector()
+	if not vel or not fwd then return end
+	local along = fwd.x * vel.x + fwd.y * vel.y + fwd.z * vel.z
+	if along < 1 then return end
+
+	if not wakeNodes then cacheWakeNodes() end
+	local cid = wakeNodes and wakeNodes.fh115
+	if not cid then
+		wakeNodes = nil
+		return
+	end
+	local sx, sy, sz = nodeWorld(cid)
+	if not sx then return end
+	if lastWake then
+		local dx = sx - lastWake.x
+		local dy = sy - lastWake.y
+		if dx * dx + dy * dy < 4.5 * 4.5 then return end
+	end
+
+	if not wakeHooked then
+		local ok = pcall(obj.queueGameEngineLua, obj, "extensions.load('dh142_wake')")
+		if not ok then return end
+		wakeHooked = true
+		return
+	end
+
+	local speedScale = math.min(1, (along - 1) / 3)
+	local pieces = {}
+	for _, entry in ipairs(WAKE_NODES) do
+		local nodeId = wakeNodes[entry.name]
+		if nodeId then
+			local x, y, z = nodeWorld(nodeId)
+			if x then
+				local scale = entry.scale * (0.55 + 0.45 * speedScale)
+				pieces[#pieces + 1] = string.format("w.drop(%f,%f,%f,%f)", x, y, z, scale)
+			end
+		end
+	end
+	if #pieces == 0 then return end
+	local command = "local w = extensions.dh142_wake or dh142_wake; if w and w.drop then " .. table.concat(pieces, ";") .. " end"
+	if pcall(obj.queueGameEngineLua, obj, command) then
+		lastWake = {x = sx, y = sy}
+	end
+end
+
 local function updateGFX(dt)
 	-- 0 is stowed on the bow, 1 is fully lowered. Releasing the key holds position.
 	-- Full travel takes about 8 seconds.
@@ -222,6 +314,8 @@ local function updateGFX(dt)
 	if physicsSteps == 0 then
 		updateParkAndEngine(dt)
 	end
+
+	updateWake(dt)
 
 	-- 0.39 reads the speedometer only from wheels with speedo enabled.
 	-- The propellers are not speedo wheels, so that value stays at 0.
