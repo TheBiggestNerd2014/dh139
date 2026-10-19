@@ -316,5 +316,35 @@
     "materialTag1": "Industrial",
     "translucent": true,
     "translucentBlendOp": "Add"
+  },
+  "dh142_prop": {
+    "name": "dh142_prop",
+    "mapTo": "dh142_prop",
+    "class": "Material",
+    "persistentId": "c4a1e2b7-6d58-4f0a-9c31-8b7e2d14a6f0",
+    "Stages": [
+      {
+        "colorMap": "levels/industrial/art/shapes/misc/ferry_white.dds",
+        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "pixelSpecular": true,
+        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "useAnisotropic": true
+      },
+      {
+        "pixelSpecular": null,
+        "useAnisotropic": null
+      },
+      {
+        "pixelSpecular": null,
+        "useAnisotropic": null
+      },
+      {
+        "pixelSpecular": null,
+        "useAnisotropic": null
+      }
+    ],
+    "doubleSided": true,
+    "materialTag0": "beamng",
+    "materialTag1": "Industrial"
   }
 }
