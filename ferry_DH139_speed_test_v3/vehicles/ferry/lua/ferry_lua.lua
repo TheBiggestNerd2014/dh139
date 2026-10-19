@@ -8,12 +8,13 @@ local anchorPos = nil
 local wasParked = false
 local overrideActive = false
 local physicsSteps = 0
-local forceOk = true
-local nodeMap = nil
+local holdWait = 0
 
-local HOLD_NODES = {"ref", "refb", "refl", "refr"}
-local HOLD_MASS = 330000
-local HOLD_ACCEL = 2.0
+-- About 0.4 m/s². From 10 mph that is roughly ten seconds to stop,
+-- light enough that cars on the deck stay put.
+local BRAKE_ACCEL = 0.4
+local HOLD_ACCEL = 0.1
+local COMMAND_DT = 0.1
 
 -- Full throttle sits near REST_RPM while the hull is stopped, then climbs to
 -- TOP_RPM once the boat is moving at SPEED_REF. Past that, it stays under the
@@ -33,8 +34,7 @@ local function onReset()
 	anchorPos = nil
 	wasParked = false
 	physicsSteps = 0
-	forceOk = true
-	nodeMap = nil
+	holdWait = 0
 end
 
 local function parkedFlag(value)
@@ -43,10 +43,12 @@ local function parkedFlag(value)
 	return false
 end
 
--- Only the ferry latch. The gearbox "parking" value and the spawn parking
--- brake must not count, or the hold runs the moment the boat is created.
+-- The parking-brake key sets parkingbrake. ferry_park is the same latch
+-- when this vehicle's binding handles the key. Gearbox Park is ignored.
 local function parkingOn()
-	return parkedFlag(electrics.values.ferry_park)
+	if parkedFlag(electrics.values.ferry_park) then return true end
+	if parkedFlag(electrics.values.parkingbrake) then return true end
+	return false
 end
 
 local function pedalInput()
@@ -108,65 +110,78 @@ local function govern()
 	setThrottle(pedal * (1 - excess))
 end
 
-local function ensureNodeMap()
-	if nodeMap then return nodeMap end
-	nodeMap = {}
-	if not v or not v.data or not v.data.nodes then return nodeMap end
-	for _, n in pairs(v.data.nodes) do
-		if type(n) == "table" and n.name and n.cid then
-			nodeMap[n.name] = n.cid
-		end
-	end
-	return nodeMap
-end
-
--- A velocity match feeds the boat's own speed back into the force and throws
--- it out of the water. This is a plain horizontal push, capped, with no
--- vertical component, so heave and pitch stay with the water.
+-- Ease the hull to a stop, then keep it there. The acceleration is horizontal
+-- only, and it fades as the boat gets slow so the deck does not throw cars
+-- into the ramp. The anchor is taken where the boat actually stops, not where
+-- the button was pressed.
 local function holdHull(dt)
-	if not forceOk then return end
 	local pos = obj:getPosition()
 	local vel = obj:getVelocity()
 	if not pos or not vel then return end
 
+	holdWait = holdWait + (dt or 0)
+	if holdWait < COMMAND_DT then return end
+	holdWait = 0
+
 	local hspeed = math.sqrt(vel.x * vel.x + vel.y * vel.y)
-	local tx, ty = 0, 0
-	if not anchorPos then
+	if hspeed > 0.25 then
+		anchorPos = nil
+	elseif not anchorPos then
 		anchorPos = vec3(pos.x, pos.y, pos.z)
 	end
-	local dx = anchorPos.x - pos.x
-	local dy = anchorPos.y - pos.y
-	local dist = math.sqrt(dx * dx + dy * dy)
-	if dist < 0.25 and hspeed < 0.08 then
+
+	local ax, ay = 0, 0
+	if hspeed > 0.12 then
+		local strength = BRAKE_ACCEL * math.min(1, hspeed / 0.8)
+		ax = -vel.x / hspeed * strength
+		ay = -vel.y / hspeed * strength
+	end
+
+	if anchorPos then
+		local dx = anchorPos.x - pos.x
+		local dy = anchorPos.y - pos.y
+		local dist = math.sqrt(dx * dx + dy * dy)
+		if hspeed < 0.08 and dist < 0.35 then
+			return
+		end
+		if dist > 0.35 then
+			local pull = math.min(HOLD_ACCEL, (dist - 0.35) * 0.08)
+			ax = ax + dx / dist * pull
+			ay = ay + dy / dist * pull
+		end
+	elseif hspeed <= 0.12 then
 		return
 	end
-	if dist > 0.25 then
-		local pull = math.min(0.6, (dist - 0.25) * 0.4)
-		tx = dx / dist * pull
-		ty = dy / dist * pull
-	end
 
-	local ax = tx - vel.x
-	local ay = ty - vel.y
 	local amag = math.sqrt(ax * ax + ay * ay)
-	if amag > HOLD_ACCEL then
-		ax = ax / amag * HOLD_ACCEL
-		ay = ay / amag * HOLD_ACCEL
+	if amag > BRAKE_ACCEL then
+		ax = ax / amag * BRAKE_ACCEL
+		ay = ay / amag * BRAKE_ACCEL
 	end
+	if amag < 0.02 then return end
 
-	local share = 1 / #HOLD_NODES
-	local fx = HOLD_MASS * ax * share
-	local fy = HOLD_MASS * ay * share
-	local map = ensureNodeMap()
-	for _, name in ipairs(HOLD_NODES) do
-		local cid = map[name]
-		if cid then
-			local ok = pcall(obj.applyForce, obj, cid, fx, fy, 0)
-			if not ok then
-				forceOk = false
-				return
-			end
+	if thrusters.getAccelDt then
+		local ok, pending = pcall(thrusters.getAccelDt)
+		if ok and type(pending) == "number" and pending > 0.03 then
+			return
 		end
+	end
+	-- Zero on Z. Matching the boat's vertical speed is what threw it into the air.
+	if thrusters and thrusters.applyAccel and pcall(thrusters.applyAccel, vec3(ax, ay, 0), COMMAND_DT) then
+		return
+	end
+	if not v or not v.data or not v.data.nodes then return end
+	local want = {ref = true, refb = true, refl = true, refr = true}
+	local cids = {}
+	for cid, n in pairs(v.data.nodes) do
+		if type(n) == "table" and n.name and want[n.name] then
+			cids[#cids + 1] = n.cid or cid
+		end
+	end
+	if #cids == 0 then return end
+	local share = 330000 / #cids
+	for _, cid in ipairs(cids) do
+		pcall(obj.applyForce, obj, cid, ax * share, ay * share, 0)
 	end
 end
 
