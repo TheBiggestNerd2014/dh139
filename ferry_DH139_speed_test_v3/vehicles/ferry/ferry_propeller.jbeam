@@ -23,7 +23,17 @@
     ],
     "torqueConverter": {
         "uiName":"Torque Converter",
-        "converterStiffness":25,
+        // The speedboat converter could not absorb this crank. Capacity grows
+        // with rpm squared, so the engine had no load until it was on the limiter
+        // and the hull was still accelerating. This diameter loads the crank at
+        // about 2800 rpm, which is where the speed governor holds it from a stop.
+        "converterDiameter":0.45,
+        "fluidDensity":845,
+        "converterStiffness":15,
+        "couplingAVRatio":0.9,
+        "stallTorqueRatio":1.6,
+        "converterTorque":20000,
+        "lockupClutchTorque":0,
     },
     "mainEngine":{
         // Single-engine curve from the speedboat, scaled onto these propellers.
@@ -113,7 +123,7 @@
         "revLimiterType":"soft",
         "revLimiterSmoothOvershootRPM":300,
         "revLimiterRPMDrop":100,
-        "inertia":3.82,
+        "inertia":8,
         "friction":207,
         "dynamicFriction":0.5,
         "engineBrakeTorque":80,
@@ -253,6 +263,10 @@
         "highShiftUpRPM":7200,
         "transmissionGearChangeDelay":0.2,
         "transmissionShiftDelay":0.25,
+        // Only one forward gear. A min gear of 2 keeps the converter from locking
+        // and letting the crank run away from the hull again.
+        "torqueConverterLockupRPM":20000,
+        "torqueConverterLockupMinGear":2,
     },
     "rotators":[
         ["name","[group]:","node1:","node2:","nodeArm:","wheelDir"],

@@ -1,5 +1,5 @@
 {
-"parkingbrake":{"order": 12, "onDown":"electrics.values.ferry_park = 1 - (electrics.values.ferry_park or 0)", "title": "Parking Brake", "desc": "Holds the ferry where it is. Press again to release."},
+"parkingbrake":{"order": 12, "onDown":"electrics.values.ferry_park = 1 - (electrics.values.ferry_park or 0); electrics.values.parkingbrake = electrics.values.ferry_park", "title": "Parking Brake", "desc": "Holds the ferry where it is. Press again to release."},
 "ramp_up"     :{"order":  13, "onChange":"electrics.values.ramp_lift_input = -1.0 * VALUE", "title": "Raise Ramp", "desc": "Raises the bow ramp. Release to hold."},
 "ramp_down"     :{"order":  14, "onChange":"electrics.values.ramp_lift_input = 1.0 * VALUE", "title": "Lower Ramp", "desc": "Lowers the bow ramp. Release to hold."}
 
