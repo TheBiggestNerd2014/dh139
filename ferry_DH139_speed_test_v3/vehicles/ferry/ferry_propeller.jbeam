@@ -1,8 +1,8 @@
 {
 "ferry_propeller": {
     "information":{
-        "authors":"BeamNG",
-        "name":"Engine & Propellers",
+        "authors":"Belasco Heavy Industries",
+        "name":"DH-142 Single Engine",
         "value":5000,
     },
     "slotType" : "ferry_propeller",
@@ -14,84 +14,140 @@
     "powertrain" : [
         ["type", "name", "inputName", "inputIndex"],
         ["combustionEngine", "mainEngine", "dummy", 0],
-        ["frictionClutch", "clutch", "mainEngine", 1],
-        ["manualGearbox", "gearbox", "clutch", 1],
+        ["torqueConverter", "torqueConverter", "mainEngine", 1],
+        ["automaticGearbox", "gearbox", "torqueConverter", 1],
         ["differential", "differential_R", "gearbox", 1, {"diffType":"locked", "lockTorque":200000, "gearRatio":10, "uiName":"Rear Differential"}],
         ["shaft", "propellerLShaft", "differential_R", 1, {"connectedWheel":"propeller_L", "breakTriggerBeam":"propeller_L", "uiName":"Left Propeller"}],
         ["shaft", "propellerRShaft", "differential_R", 2, {"connectedWheel":"propeller_R", "breakTriggerBeam":"propeller_R", "uiName":"Right Propeller"}],
     ],
+    "torqueConverter": {
+        "uiName":"Torque Converter",
+        "converterStiffness":25,
+    },
     "mainEngine":{
-        // Prop drag grows with rpm squared, so a flat 6000 Nm curve fades after 3500.
-        // Torque keeps rising through 5000. The damage rating is raised above this peak.
+        // Single-engine curve from the speedboat, scaled onto these propellers.
+        // The shape still climbs to 6600 rpm and then falls off. Peak is 12000 Nm,
+        // which these 10:1 propellers can turn without stalling the crank.
         "torque":[
             ["rpm", "torque"],
-            [0,      0],
-            [400,  800],
-            [800, 2000],
-            [1200, 3500],
-            [1600, 4800],
-            [2000, 5500],
-            [3000, 7000],
-            [3500, 8800],
-            [4000, 10500],
-            [4500, 11500],
-            [5000, 12000],
-            [5400, 11500],
-            [5600, 7000],
+            [0, 0],
+            [100, 83],
+            [500, 5570],
+            [900, 7313],
+            [1000, 7522],
+            [1100, 7706],
+            [1200, 7906],
+            [1300, 8048],
+            [1400, 8175],
+            [1500, 8316],
+            [1600, 8465],
+            [1700, 8558],
+            [1800, 8644],
+            [1900, 8736],
+            [2000, 8788],
+            [2100, 8859],
+            [2200, 8940],
+            [2300, 9014],
+            [2400, 9083],
+            [2500, 9190],
+            [2600, 9298],
+            [2700, 9406],
+            [2800, 9452],
+            [2900, 9553],
+            [3000, 9618],
+            [3100, 9673],
+            [3200, 9744],
+            [3300, 9806],
+            [3400, 9915],
+            [3500, 10018],
+            [3600, 10126],
+            [3700, 10187],
+            [3800, 10243],
+            [3900, 10300],
+            [4000, 10387],
+            [4100, 10459],
+            [4200, 10572],
+            [4300, 10684],
+            [4400, 10803],
+            [4500, 10896],
+            [4600, 10988],
+            [4700, 11079],
+            [4800, 11149],
+            [4900, 11190],
+            [5000, 11203],
+            [5100, 11288],
+            [5200, 11352],
+            [5300, 11371],
+            [5400, 11437],
+            [5500, 11464],
+            [5600, 11501],
+            [5700, 11538],
+            [5800, 11594],
+            [5900, 11651],
+            [6000, 11730],
+            [6100, 11791],
+            [6200, 11845],
+            [6300, 11874],
+            [6400, 11964],
+            [6500, 11997],
+            [6600, 12000],
+            [6700, 11998],
+            [6800, 11992],
+            [6900, 11970],
+            [7000, 11943],
+            [7100, 11910],
+            [7200, 11880],
+            [7300, 11823],
+            [7400, 11765],
+            [7500, 11698],
+            [7600, 11634],
+            [7700, 11567],
+            [7800, 11495],
+            [7900, 10578],
+            [8000, 8806],
         ],
-        "idleRPM":600,
-        "maxRPM":5000,
-        "revLimiterRPM":5000,
+        "idleRPM":875,
+        "maxRPM":8400,
+        "revLimiterRPM":8000,
         "revLimiterType":"soft",
-        "revLimiterSmoothOvershootRPM":200,
-        "inertia":2.5,
-        "friction":37,
-        "idleRPMRoughness":300,
-        "dynamicFriction":0.1,
-        "engineBrakeTorque":120,
-        //"burnEfficiency":0.35
+        "revLimiterSmoothOvershootRPM":300,
+        "revLimiterRPMDrop":100,
+        "inertia":3.82,
+        "friction":207,
+        "dynamicFriction":0.5,
+        "engineBrakeTorque":80,
         "burnEfficiency":[
-            [0,   0.20],
-            [0.1, 0.25],
-            [0.3, 0.32],
-            [0.4, 0.46],
-            [0.7, 0.44],
-            [1,   0.42],
+            [0.00, 0.13],
+            [0.05, 0.28],
+            [0.40, 0.37],
+            [0.70, 0.45],
+            [1.00, 0.31],
         ],
-        //fuel system
         "energyStorage": "mainTank",
-        "requiredEnergyType":"diesel",
-
-        //exhaust
-        "particulates":0.15,
-        "instantAfterFireCoef": 0.0,
-        "sustainedAfterFireCoef": 0.0,
-
-        //cooling and oil system
+        "requiredEnergyType":"gasoline",
+        "particulates":0.1,
+        "instantAfterFireCoef": 0.15,
+        "sustainedAfterFireCoef": 0.05,
         "thermalsEnabled":true,
-        "engineBlockMaterial":"iron",
-        "oilVolume":25,
+        "engineBlockMaterial":"aluminium",
+        "oilVolume":12,
         "engineBlockAirCoolingEfficiency":70,
         "radiatorFanType":"mechanical",
-        "radiatorFanLoopEvent": "event:>Vehicle>Cooling Fan>Mechanical_01"
+        "radiatorFanLoopEvent": "event:>Vehicle>Cooling Fan>Mechanical_01",
         "radiatorFanVolume": 0.75,
-
-        //engine durability
-        "cylinderWallTemperatureDamageThreshold":175,
+        "radiatorFanMaxAirSpeed":2,
+        "thermostatTemperature":90,
+        "oilThermostatTemperature":100,
+        "cylinderWallTemperatureDamageThreshold":310,
         "headGasketDamageThreshold":1700000,
         "pistonRingDamageThreshold":1700000,
         "connectingRodDamageThreshold":2200000,
-        "maxTorqueRating": 25000,
-        "maxOverTorqueDamage": 20000,
-
-        //node beam interface
+        "maxTorqueRating": 20000,
+        "maxOverTorqueDamage": 16000,
         "breakTriggerBeam":"engine",
         "uiName":"Engine",
-
         "soundConfig": "soundConfig",
         "soundConfigExhaust": "soundConfigExhaust",
-
-        //starter motor
         "starterSample":"event:>Engine>Starter>i6diesel_semi_eng",
         "shutOffSampleEngine":"event:>Engine>Shutoff>i6diesel_semi_eng",
         "starterVolume":0.76,
@@ -99,60 +155,8 @@
         "starterThrottleKillTime":1.2,
         "idleRPMStartRate":2,
         "idleRPMStartCoef":0.8,
-
-        "turbocharger":"turbocharger",
-        "$+particulates":0.4,
-
-        "torqueModMult":[
-            ["rpm", "torque"],
-            [0,    1.00],
-            [5600, 1.00],
-        ],
-        //max rpm physically capable of
-        "$+maxRPM":500,
-        "$*friction":1.13,
-        "$*dynamicFriction":1.15,
-        "$*inertia":1.15,
-        "$*engineBrakeTorque":1.1,
-
-        "$*maxTorqueRating": 1.69,
-        "$*maxOverTorqueDamage": 1.5,
-    },
-    "turbocharger": {
-        "bovSoundFileName":"event:>Vehicle>Forced_Induction>turbo_semi_01>turbo_bov",
-        "hissLoopEvent":"event:>Vehicle>Forced_Induction>turbo_semi_01>turbo_hiss",
-        "whineLoopEvent":"event:>Vehicle>Forced_Induction>turbo_semi_01>turbo_spin",
-        "bovEnabled":false,
-        "bovSoundVolumeCoef": 0.0,
-        "hissVolumePerPSI": 0.0,
-        "whineVolumePer10kRPM": 0.09,
-        "whinePitchPer10kRPM": 0.074,
-        "wastegateStart":55,
-        "wastegateLimit":57,
-        "maxExhaustPower": 35000,
-        "backPressureCoef": 0.00006,
-        "frictionCoef": 23,
-        "inertia":25,
-        "damageThresholdTemperature": 850,
-        "pressurePSI":[
-            //turbineRPM, pressure(PSI)
-            [0,          0],
-            [30000,      8],
-            [60000,     20],
-            [90000,     39],
-            [150000,    69],
-            [200000,    78],
-            [250000,    87],
-            [300000,    93],
-        ],
-        "engineDef":[
-            //engineRPM, efficiency, exhaustFactor
-            // The gauge shows ~12 psi here. Keep the multiplier small so that
-            // boost cannot push the 6000 Nm curve into engine damage.
-            [0,     0.05,   0.20],
-            [800,   0.05,   0.80],
-            [5600,  0.05,   0.80],
-        ],
+        // Stern deck nodes. The speedboat ids are not on this hull.
+        "torqueReactionNodes:":["fhl110", "fh113", "fhr110"],
     },
     "soundConfig": {
         "sampleName": "I6D_14900cc_01_1969_engine",
@@ -169,11 +173,10 @@
         "lowShelfFreq": 100,
 
         // Low-pass. There is no lowPass control; a negative high shelf
-        // cuts everything above highShelfFreq. The shelf used to sit at
-        // 4500 Hz with no cut, so the sample's top end came through once
-        // this diesel was pitched up near the 5000 rpm limiter.
+        // cuts everything above highShelfFreq. The limiter is at 8000 rpm,
+        // so the shelf sits lower to keep the pitched sample from squealing.
         "highShelfGain": -16,
-        "highShelfFreq": 2200,
+        "highShelfFreq": 1400,
 
         "eqLowGain": 0,
         "eqLowFreq": 350,
@@ -204,7 +207,7 @@
         // Was +6 dB above 2500 Hz, which turned the max-rev whine up.
         // Same low-pass as the engine layer: roll off the top, keep the body.
         "highShelfGain": -16,
-        "highShelfFreq": 1800,
+        "highShelfFreq": 1200,
 
         "eqLowGain": 0,
         "eqLowFreq": 100,
@@ -219,58 +222,36 @@
     },
     "gearbox": {
         "uiName":"Gearbox",
-        "gearRatios":[-1.00, 0, 1.00], //gearbox 1
-        "friction": 5.9,
-        "dynamicFriction": 0.00582,
-        "torqueLossCoef": 0.014,
-
+        "gearRatios":[-1, 0, 1],
+        "parkLockTorque":2000,
+        "oneWayViscousCoef":8,
+        "friction":1,
+        "dynamicFriction":0.005,
+        "torqueLossCoef":0.014,
         "gearWhineCoefsInput":  [1.00, 0.00, 1.00],
         "gearWhineCoefsOutput": [0.00, 0.00, 1.00],
         "gearWhineInputEvent": "event:>Vehicle>Transmission>semi_01>twine_in",
         "gearWhineOutputEvent": "event:>Vehicle>Transmission>semi_01>twine_out",
-
-        "forwardInputPitchCoef":1.4
-        "forwardOutputPitchCoef":1.4
-
-        "gearWhineInputPitchCoefSmoothing":75
-        "gearWhineOutputPitchCoefSmoothing":75
-        "gearWhineInputVolumeCoefSmoothing":20
-        "gearWhineOutputVolumeCoefSmoothing":20
-
-    },
-    "clutch": {
-        "uiName":"Clutch",
-        "additionalEngineInertia":4,
-        "clutchMass":32,
-        "clutchFreePlay":0.2,
-        "lockSpringCoef":0.8,
-        "lockDampRatio":0.05,
-        "lockTorque":100000000,
-        "coolingCoef":1000
+        "forwardInputPitchCoef":1.4,
+        "forwardOutputPitchCoef":1.4,
+        "gearWhineInputPitchCoefSmoothing":75,
+        "gearWhineOutputPitchCoefSmoothing":75,
+        "gearWhineInputVolumeCoefSmoothing":20,
+        "gearWhineOutputVolumeCoefSmoothing":20,
     },
     "vehicleController": {
-        "automaticModes":"RND1",
+        "automaticModes":"PRND",
         "useSmartAggressionCalculation":false,
-        /*"calculateOptimalLoadShiftPoints":false*/,
-        /*"transmissionGearChangeDelay":2*/,
+        "calculateOptimalLoadShiftPoints":true,
         "gearboxDecisionSmoothingDown":2,
         "gearboxDecisionSmoothingUp":2,
-        "throttleCoefWhileShifting": 1,
-
-        "highShiftUpRPM":2200,
-        /*"highShiftDownRPM":1600*/,
-        /*"lowShiftUpRPM":1200*/,
-        /*"lowShiftDownRPM":600*/,
-
-        "clutchInRate":10,
-        "clutchOutRate":10,
-        "transmissionGearChangeDelay":0.25,
-        "transmissionShiftDelay":0.3,
-        "calculateOptimalLoadShiftPoints": false,
-        "lowShiftDownRPM":[0,0,0,600,700,850,850,850,850,850,850,850],
-        "lowShiftUpRPM":[0,0,2100,1950,1700,1550,1550,1550,1550,1550,1550],
-        "highShiftDownRPM":[0,0,0,800,950,1150,1250,1250,1250,1250,1250,1250],
-        "wheelSlipUpThreshold":900,
+        "throttleCoefWhileShifting":1,
+        "lowShiftDownRPM":1400,
+        "lowShiftUpRPM":2700,
+        "highShiftDownRPM":4500,
+        "highShiftUpRPM":7200,
+        "transmissionGearChangeDelay":0.2,
+        "transmissionShiftDelay":0.25,
     },
     "rotators":[
         ["name","[group]:","node1:","node2:","nodeArm:","wheelDir"],
@@ -293,7 +274,7 @@
         ["$fuel", "range", "L", "Chassis", 5000, 0, 5000, "Fuel Volume", "Initial fuel volume", {"stepDis":10}],
     ],
     "mainTank": {
-        "energyType":"diesel",
+        "energyType":"gasoline",
         "fuelCapacity": 5000,
         "startingFuelCapacity": "$fuel",
         "breakTriggerBeam": "engine",

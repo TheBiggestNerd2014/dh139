@@ -2,7 +2,7 @@
 "ferry_car_gate":{
   "information":{
     "authors":"JGB",
-    "name":"Ferry Car Gate",
+    "name":"DH-142 Car Gate",
     "value":100,
   },
   "slotType":"ferry_car_gate",

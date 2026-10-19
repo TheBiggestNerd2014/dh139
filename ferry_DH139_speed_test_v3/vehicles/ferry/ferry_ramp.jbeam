@@ -2,7 +2,7 @@
 "ferry_ramp":{
 	"information":{
 		"authors":"JGB",
-		"name":"Ferry Ramp",
+		"name":"DH-142 Bow Ramp",
 		"value":2000,
 	},
 	"slotType":"ferry_ramp",

@@ -2,7 +2,7 @@
 "ferry_cargo":{
 	"information":{
 		"authors":"JGB",
-		"name":"Ferry Cargo",
+		"name":"DH-142 Cargo Deck",
 		"value":2000,
 	},
 	"slotType":"ferry_cargo",

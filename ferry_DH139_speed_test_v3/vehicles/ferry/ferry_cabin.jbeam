@@ -2,7 +2,7 @@
 "ferry_cabin":{
   "information":{
     "authors":"JGB",
-    "name":"Ferry Cabin",
+    "name":"DH-142 Cabin",
     "value":10000,
   },
   "slotType":"ferry_cabin",

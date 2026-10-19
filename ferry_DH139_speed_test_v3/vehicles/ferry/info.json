@@ -1,9 +1,8 @@
 {
-  "Author":"JGB",
-  "Brand":"Belasco heavy industries",
-  "Country":"USA",
-  "Name":"DH-139",
-  "Type":"Boat",
- 
-  "default_pc":"Base"
+  "Author": "Belasco Heavy Industries",
+  "Brand": "Belasco Heavy Industries",
+  "Country": "USA",
+  "Name": "DH-142",
+  "Type": "Boat",
+  "default_pc": "Base"
 }
