@@ -8,8 +8,12 @@ local anchorPos = nil
 local wasParked = false
 local overrideActive = false
 local physicsSteps = 0
-local holdWait = 0
-local HOLD_DT = 0.05
+local forceOk = true
+local nodeMap = nil
+
+local HOLD_NODES = {"ref", "refb", "refl", "refr"}
+local HOLD_MASS = 330000
+local HOLD_ACCEL = 2.0
 
 -- Full throttle sits near REST_RPM while the hull is stopped, then climbs to
 -- TOP_RPM once the boat is moving at SPEED_REF. Past that, it stays under the
@@ -29,7 +33,8 @@ local function onReset()
 	anchorPos = nil
 	wasParked = false
 	physicsSteps = 0
-	holdWait = 0
+	forceOk = true
+	nodeMap = nil
 end
 
 local function parkedFlag(value)
@@ -38,11 +43,10 @@ local function parkedFlag(value)
 	return false
 end
 
+-- Only the ferry latch. The gearbox "parking" value and the spawn parking
+-- brake must not count, or the hold runs the moment the boat is created.
 local function parkingOn()
-	if parkedFlag(electrics.values.ferry_park) then return true end
-	if parkedFlag(electrics.values.parkingbrake) then return true end
-	if parkedFlag(electrics.values.parking) then return true end
-	return false
+	return parkedFlag(electrics.values.ferry_park)
 end
 
 local function pedalInput()
@@ -104,55 +108,66 @@ local function govern()
 	setThrottle(pedal * (1 - excess))
 end
 
--- Node velocity cannot be assigned. A world-object setVelocity is overwritten
--- by the physics step, which is why the brake did not hold. This asks the
--- thruster system for a horizontal acceleration only, and leaves heave alone
--- so a ramp resting on a dock cannot bounce the deck.
+local function ensureNodeMap()
+	if nodeMap then return nodeMap end
+	nodeMap = {}
+	if not v or not v.data or not v.data.nodes then return nodeMap end
+	for _, n in pairs(v.data.nodes) do
+		if type(n) == "table" and n.name and n.cid then
+			nodeMap[n.name] = n.cid
+		end
+	end
+	return nodeMap
+end
+
+-- A velocity match feeds the boat's own speed back into the force and throws
+-- it out of the water. This is a plain horizontal push, capped, with no
+-- vertical component, so heave and pitch stay with the water.
 local function holdHull(dt)
+	if not forceOk then return end
 	local pos = obj:getPosition()
 	local vel = obj:getVelocity()
 	if not pos or not vel then return end
 
-	-- One command at a time. Applying every physics step stacks the acceleration
-	-- and is what launched the deck when the ramp was down.
-	holdWait = holdWait + (dt or 0.016)
-	if holdWait < HOLD_DT then return end
-	holdWait = 0
-
 	local hspeed = math.sqrt(vel.x * vel.x + vel.y * vel.y)
 	local tx, ty = 0, 0
-	if hspeed < 0.4 then
-		if not anchorPos then
-			anchorPos = vec3(pos.x, pos.y, pos.z)
-		end
-		local dx = anchorPos.x - pos.x
-		local dy = anchorPos.y - pos.y
-		local dist = math.sqrt(dx * dx + dy * dy)
-		if dist < 0.2 and hspeed < 0.05 then
-			return
-		end
-		if dist > 0.2 then
-			local pull = math.min(0.7, (dist - 0.2) * 0.5)
-			tx = dx / dist * pull
-			ty = dy / dist * pull
-		end
+	if not anchorPos then
+		anchorPos = vec3(pos.x, pos.y, pos.z)
+	end
+	local dx = anchorPos.x - pos.x
+	local dy = anchorPos.y - pos.y
+	local dist = math.sqrt(dx * dx + dy * dy)
+	if dist < 0.25 and hspeed < 0.08 then
+		return
+	end
+	if dist > 0.25 then
+		local pull = math.min(0.6, (dist - 0.25) * 0.4)
+		tx = dx / dist * pull
+		ty = dy / dist * pull
 	end
 
-	local maxDelta = 6 * HOLD_DT
-	local function stepToward(current, target)
-		local delta = target - current
-		if delta > maxDelta then return current + maxDelta end
-		if delta < -maxDelta then return current - maxDelta end
-		return target
+	local ax = tx - vel.x
+	local ay = ty - vel.y
+	local amag = math.sqrt(ax * ax + ay * ay)
+	if amag > HOLD_ACCEL then
+		ax = ax / amag * HOLD_ACCEL
+		ay = ay / amag * HOLD_ACCEL
 	end
 
-	if thrusters.getAccelDt then
-		local ok, pending = pcall(thrusters.getAccelDt)
-		if ok and type(pending) == 'number' and pending > 0.01 then
-			return
+	local share = 1 / #HOLD_NODES
+	local fx = HOLD_MASS * ax * share
+	local fy = HOLD_MASS * ay * share
+	local map = ensureNodeMap()
+	for _, name in ipairs(HOLD_NODES) do
+		local cid = map[name]
+		if cid then
+			local ok = pcall(obj.applyForce, obj, cid, fx, fy, 0)
+			if not ok then
+				forceOk = false
+				return
+			end
 		end
 	end
-	thrusters.applyVelocity(vec3(stepToward(vel.x, tx), stepToward(vel.y, ty), vel.z), HOLD_DT)
 end
 
 local function updateParkAndEngine(dt)
