@@ -17,11 +17,13 @@ local HOLD_ACCEL = 0.1
 local COMMAND_DT = 0.1
 
 -- Full throttle sits near REST_RPM while the hull is stopped, then climbs to
--- TOP_RPM once the boat is moving at SPEED_REF. Past that, it stays under the
+-- TOP_RPM once the boat is moving at SPEED_REF. The floor has to be high
+-- enough that the props actually push: at 2800 rpm the hull stalled around
+-- 3 mph and the ceiling never opened. Past SPEED_REF it stays under the
 -- rev limiter instead of buzzing on it.
-local REST_RPM = 2800
-local TOP_RPM = 7000
-local SPEED_REF = 10
+local REST_RPM = 6000
+local TOP_RPM = 7600
+local SPEED_REF = 4
 
 local function onReset()
 	electrics.values['ramp_lift'] = 0
