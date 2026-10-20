@@ -50,7 +50,7 @@
     {"selfCollision":true},
     {"group":"ferry_hull"},
     {"nodeWeight":800},
-    {"dragCoef":300},
+    {"dragCoef":80},
 
     //LEFT
     ["fhl0",4.088,-20.195,3.927],

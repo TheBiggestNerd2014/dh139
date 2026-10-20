@@ -6,10 +6,10 @@
     "persistentId": "1b373f80-e3a7-4065-b959-7d6ddf2f9141",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_black.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_black.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {
@@ -36,10 +36,10 @@
     "persistentId": "c3084283-b6a4-40e5-8089-7b482b7c14e1",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_blue.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_blue.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {
@@ -66,10 +66,10 @@
     "persistentId": "3bf70c71-4254-4d5c-b627-063092905b7c",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_hazard.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_hazard.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {
@@ -162,10 +162,10 @@
     "persistentId": "2219cfdd-a300-4858-9d86-8068e9cb3c70",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_railing_d.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_railing_n.dds",
+        "colorMap": "vehicles/ferry/ferry_railing_d.dds",
+        "normalMap": "vehicles/ferry/ferry_railing_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "specularPower": 4,
         "useAnisotropic": true
       },
@@ -186,10 +186,10 @@
     "persistentId": "d708ad1d-180d-4bc4-aee3-7baadc21f8c8",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_red.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_red.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {
@@ -216,10 +216,10 @@
     "persistentId": "e6a37ac0-1d2f-42d6-8146-98edb077804d",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_white.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_white.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {
@@ -246,8 +246,8 @@
     "persistentId": "86be54b6-6149-4492-ad2a-e99d01e8e2d0",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_white_paint.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_white_paint.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "roughnessFactor": 0.549030423,
         "specular": [
           0.5,
@@ -255,7 +255,7 @@
           0.5,
           1
         ],
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds"
+        "specularMap": "vehicles/ferry/ferry_s.dds"
       },
       {
         "roughnessFactor": null,
@@ -282,16 +282,16 @@
     "persistentId": "a63f3a73-7b55-46f7-b9fc-a7fefc7ae942",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_white_paint.dds",
+        "colorMap": "vehicles/ferry/ferry_white_paint.dds",
         "diffuseColor": [
           0,
           0.580392003,
           1,
           0.00800000038
         ],
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {
@@ -324,10 +324,10 @@
     "persistentId": "c4a1e2b7-6d58-4f0a-9c31-8b7e2d14a6f0",
     "Stages": [
       {
-        "colorMap": "levels/industrial/art/shapes/misc/ferry_white.dds",
-        "normalMap": "levels/industrial/art/shapes/misc/ferry_n.dds",
+        "colorMap": "vehicles/ferry/ferry_white.dds",
+        "normalMap": "vehicles/ferry/ferry_n.dds",
         "pixelSpecular": true,
-        "specularMap": "levels/industrial/art/shapes/misc/ferry_s.dds",
+        "specularMap": "vehicles/ferry/ferry_s.dds",
         "useAnisotropic": true
       },
       {

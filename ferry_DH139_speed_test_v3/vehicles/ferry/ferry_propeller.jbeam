@@ -142,8 +142,8 @@
         "energyStorage": "mainTank",
         "requiredEnergyType":"gasoline",
         "particulates":0.1,
-        "instantAfterFireCoef": 0.15,
-        "sustainedAfterFireCoef": 0.05,
+        "instantAfterFireCoef": 0,
+        "sustainedAfterFireCoef": 0,
         "thermalsEnabled":true,
         "engineBlockMaterial":"aluminium",
         "oilVolume":12,
@@ -189,10 +189,9 @@
         "lowShelfFreq": 100,
 
         // Low-pass. There is no lowPass control; a negative high shelf
-        // cuts everything above highShelfFreq. The limiter is at 8000 rpm,
-        // so the shelf sits lower to keep the pitched sample from squealing.
-        "highShelfGain": -16,
-        "highShelfFreq": 1400,
+        // cuts everything above highShelfFreq so the diesel sample stays dull.
+        "highShelfGain": -24,
+        "highShelfFreq": 700,
 
         "eqLowGain": 0,
         "eqLowFreq": 350,
@@ -200,9 +199,9 @@
 
         // Extra cut through the squeak band, wide enough to act like a
         // second stage of the same low-pass.
-        "eqHighGain": -12,
-        "eqHighFreq": 3600,
-        "eqHighWidth": 0.7,
+        "eqHighGain": -18,
+        "eqHighFreq": 1800,
+        "eqHighWidth": 0.8,
 
         "fundamentalFrequencyCylinderCount":6,
         "eqFundamentalGain": 0,
@@ -222,16 +221,16 @@
 
         // Was +6 dB above 2500 Hz, which turned the max-rev whine up.
         // Same low-pass as the engine layer: roll off the top, keep the body.
-        "highShelfGain": -16,
-        "highShelfFreq": 1200,
+        "highShelfGain": -24,
+        "highShelfFreq": 600,
 
         "eqLowGain": 0,
         "eqLowFreq": 100,
         "eqLowWidth": 0.1,
 
-        "eqHighGain": -12,
-        "eqHighFreq": 3000,
-        "eqHighWidth": 0.7,
+        "eqHighGain": -18,
+        "eqHighFreq": 1600,
+        "eqHighWidth": 0.8,
 
         "fundamentalFrequencyCylinderCount":6,
         "eqFundamentalGain": -12,
@@ -476,19 +475,20 @@
           ["bplax1", "fh115"],
           ["bplax1", "fhl114"],
           ["bplax1", "fhr114"],
-          ["bplax0", "fh106"],
-          ["bplax0", "fh115"],
-          ["bplax0", "fhl114"],
-          ["bplax0", "fhr114"],
           {"breakGroup":"propeller_R"},
           ["bprax1", "fh106", {"name":"propeller_R"}],
           ["bprax1", "fh115"],
           ["bprax1", "fhl114"],
           ["bprax1", "fhr114"],
+          // Outboard ends can swing. The inboard ends stay the pivot.
+          {"beamSpring":180000,"beamDamp":500},
+          {"beamLongBound":1.25,"beamShortBound":0.8},
+          ["bplax0", "fh106"],
+          ["bplax0", "fh115"],
           ["bprax0", "fh106"],
           ["bprax0", "fh115"],
-          ["bprax0", "fhl114"],
-          ["bprax0", "fhr114"],
+          {"beamLongBound":1.0,"beamShortBound":1.0},
+          {"beamSpring":2001000,"beamDamp":400},
           {"breakGroup":""},
           ["bpmtl7", "fh106"],
           ["bpmtl7", "fhl105"],
@@ -498,6 +498,21 @@
           ["bprmt7", "fhr105"],
           ["bprmt3", "fhr114"],
           ["bprmt5", "fh115"],
+    ],
+    "hydros": [
+        ["id1:","id2:"],
+        // Steering cylinders on the outboard shaft ends. Bounds are wide
+        // enough for the stroke, and these nodes do not spin.
+        {"beamPrecompression":1.0, "beamType":"|NORMAL", "beamLongBound":1.2, "beamShortBound":0.82},
+        {"beamSpring":300000,"beamDamp":700},
+        {"beamDeform":8000000,"beamStrength":6200000},
+        {"breakGroup":"propeller_L"},
+        ["bplax0", "fhr114", {"factor":-0.12,"steeringWheelLock":480, "inRate":0.7,"outRate":0.7}],
+        ["bplax0", "fhl114", {"factor": 0.12,"steeringWheelLock":480, "inRate":0.7,"outRate":0.7}],
+        {"breakGroup":"propeller_R"},
+        ["bprax0", "fhr114", {"factor":-0.12,"steeringWheelLock":480, "inRate":0.7,"outRate":0.7}],
+        ["bprax0", "fhl114", {"factor": 0.12,"steeringWheelLock":480, "inRate":0.7,"outRate":0.7}],
+        {"breakGroup":""},
     ],
     "triangles": [
           ["id1:", "id2:", "id3:"],
