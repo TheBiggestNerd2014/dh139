@@ -21,11 +21,11 @@ local HOLD_ACCEL = 0.1
 local COMMAND_DT = 0.1
 
 -- Full throttle sits near REST_RPM while the hull is stopped, then climbs to
--- TOP_RPM once the boat is moving at SPEED_REF. This sample is a low-rpm
--- diesel, so the ceiling stays well under the limiter instead of screaming.
-local REST_RPM = 3000
-local TOP_RPM = 4200
-local SPEED_REF = 3
+-- TOP_RPM once the boat is moving at SPEED_REF. This diesel sample is pitched
+-- by rpm, so the ceiling stays down where the recording actually sounds low.
+local REST_RPM = 1200
+local TOP_RPM = 2000
+local SPEED_REF = 4
 
 local function onReset()
 	electrics.values['ramp_lift'] = 0
@@ -95,9 +95,19 @@ local function releaseThrottle()
 	overrideActive = false
 end
 
--- The converter used to let the crank run away to the limiter while the hull
--- was still slow. The pedal is passed through below the speed ceiling and
--- closed as rpm reaches it, so the note climbs with the boat.
+local function engineRpm()
+	if powertrain and powertrain.getDevice then
+		local eng = powertrain.getDevice("mainEngine")
+		if eng and type(eng.outputAV1) == "number" then
+			return math.abs(eng.outputAV1) * 9.5492965855
+		end
+	end
+	return electrics.values.rpm or 0
+end
+
+-- The converter flares to the limiter in a single frame if the pedal is
+-- passed through. Always own the throttle while it is down, and only open
+-- it enough to climb toward the ceiling.
 local function govern()
 	if parkingOn() then
 		setThrottle(0)
@@ -109,15 +119,19 @@ local function govern()
 		return
 	end
 	local cap = rpmCeiling(hullSpeed())
-	local target = 875 + pedal * (cap - 875)
-	local rpm = electrics.values.rpm or 0
-	if rpm < target - 350 then
-		releaseThrottle()
-		return
+	local target = 700 + pedal * (cap - 700)
+	local rpm = engineRpm()
+	local error = target - rpm
+	local cmd
+	if error > 200 then
+		cmd = math.min(pedal, 0.22 + math.min(error, 600) / 2400)
+	else
+		local excess = (200 - error) / 350
+		if excess < 0 then excess = 0 elseif excess > 1 then excess = 1 end
+		cmd = pedal * (1 - excess) * 0.4
 	end
-	local excess = (rpm - (target - 350)) / 700
-	if excess < 0 then excess = 0 elseif excess > 1 then excess = 1 end
-	setThrottle(pedal * (1 - excess))
+	if cmd < 0 then cmd = 0 elseif cmd > pedal then cmd = pedal end
+	setThrottle(cmd)
 end
 
 -- Ease the hull to a stop, then keep it there. The acceleration is horizontal
