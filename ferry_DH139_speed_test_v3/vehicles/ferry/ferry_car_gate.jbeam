@@ -2,7 +2,7 @@
 "ferry_car_gate":{
   "information":{
     "authors":"JGB",
-    "name":"Ferry Car Gate",
+    "name":"DH-142 Car Gate",
     "value":100,
   },
   "slotType":"ferry_car_gate",
@@ -26,7 +26,7 @@
     {"selfCollision":true},
     {"group":"ferry_car_gate"},
     {"nodeWeight":300},
-    {"dragCoef":300},
+    {"dragCoef":40},
 
     //LEFT
     ["fcl0",5.7062,-11.3453,-0.0411],

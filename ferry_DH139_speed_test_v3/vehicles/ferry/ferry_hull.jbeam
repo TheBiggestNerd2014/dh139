@@ -1,8 +1,8 @@
 {
 "ferry_hull":{
   "information":{
-    "authors":"JGB",
-    "name":"Ferry Hull",
+    "authors":"Belasco Heavy Industries",
+    "name":"DH-142 Hull",
     "value":10000,
   },
   "slotType":"main",
@@ -11,7 +11,7 @@
     ["ferry_cabin", "ferry_cabin", "Cabin and Stairways"],
     ["ferry_car_gate", "ferry_car_gate", "Car Gate"],
     ["ferry_ramp", "ferry_ramp", "Loading Ramp"],
-    ["ferry_propeller", "ferry_propeller", "Engine & Propellers"],
+    ["ferry_propeller", "ferry_propeller", "Single Engine and Propellers"],
 	["ferry_cargo", "", "Cargo"],
     ["ferry_mod", "", "Additional Modification"],
     ["ferry_mod2", "", "Additional Modification 2"],
@@ -23,7 +23,7 @@
   "controller": [
         ["fileName"],
         ["vehicleController", {}],
-
+        ["ferry_lua", {}],
     ],
     "refNodes":[
         ["ref:", "back:", "left:", "up:", "leftCorner:", "rightCorner:"]
@@ -50,7 +50,7 @@
     {"selfCollision":true},
     {"group":"ferry_hull"},
     {"nodeWeight":800},
-    {"dragCoef":300},
+    {"dragCoef":80},
 
     //LEFT
     ["fhl0",4.088,-20.195,3.927],

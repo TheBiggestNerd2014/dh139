@@ -2,7 +2,7 @@
 "ferry_ramp":{
 	"information":{
 		"authors":"JGB",
-		"name":"Ferry Ramp",
+		"name":"DH-142 Bow Ramp",
 		"value":2000,
 	},
 	"slotType":"ferry_ramp",
@@ -17,19 +17,6 @@
 
 
 
-"slidenodes": [ 
-     ["id:", "railName", "attached", "fixToRail", "tolerance", "spring", "strength", "capStrength"],
- 
-     ["frl2", "Rail_L", true, true, 0, 100000, 100000000, 345435],
-	 
-	 ["frr2", "Rail_R", true, true, 0, 100000, 100000000, 345435],
-],	
-
-"rails": {
-      "Rail_L":{"links:":["frrl2", "frrl1", "frrl"], "looped":false, "capped":true},
-	  
-	  "Rail_R":{"links:":["frrr2", "frrr1", "frrr"], "looped":false, "capped":true},
-},
 //--Nodes--
 	"nodes":[
 		["id", "posX", "posY", "posZ"],
@@ -50,33 +37,24 @@
 		["frr3",-3.7942,-19.5178,3.5968],
 		["frr0",-4.042,-16.4621,-0.19],
 		["frr1",-3.8575,-16.2873,0.0881],
-		
-		
-		{"group":"ramp_rail"},
+		// Center of the top edge and the ramp face, so the mesh follows the plate.
+		["fr2", 0.0, -20.0251, 3.899],
+		["fr3", 0.0, -19.4732, 3.5621],
+
+		{"group":""},
 		{"collision":false},
 		{"selfCollision":false},
-		{"nodeWeight":5},
+		{"nodeWeight":80},
 		{"dragCoef":0},
-        ["frrl", 4.0677, -21.8437, -1.9386],
-        ["frrr", -4.0677, -21.8437, -1.9386],
-        ["frrl2", 4.0677, -20.0251, 3.899],
-        ["frrr2", -4.0677, -20.0251, 3.899],
-		["frrl1", 4.0677, -21.0402, 2.7085],
-        ["frrr1", -4.0677, -21.0402, 2.7085],
-		
-		
-		{"collision":true},
-		{"selfCollision":false},
-		{"nodeWeight":50},
-		{"dragCoef":10},
-		{"group":""},
-        
+		// Cylinder bases on the bow, above the lip. Not colliders.
+		["ral", 4.042, -16.9, 3.55],
+		["rar", -4.042, -16.9, 3.55],
 	],
 //--Beams--
 	"beams":[
 		["id1:", "id2:"],
 		{"disableMeshbreaking":"true"},
-		{"beamSpring":10000000,"beamDamp": 1, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
+		{"beamSpring":10000000,"beamDamp":80, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
         ["frr2","frr0"],
         ["frr3","frr1"],
         ["frr2","frr3"],
@@ -118,48 +96,38 @@
 		
 		
 		
-		//RAIL
-		["frrl","frrr"],
-        ["frrl","frrl2"],
-        ["frrr","frrr2"],
-		["frrr2","frrl2"],
-		 ["frrl","frrl1"],
-        ["frrl2","frrl1"],
-        ["frrr2","frrr1"],
-        ["frrr","frrr1"],
-        ["frrl1","frrr1"],
-        ["frrl2","frrr1"],
-        ["frrr2","frrl1"],
-        ["frrr","frrl1"],
-        ["frrl","frrr1"],
-		
-		//ATTACH
-		{"beamSpring":500000,"beamDamp": 1, "beamDeform":"FLT_MAX","beamStrength": "FLT_MAX"},
+		// Center nodes stay on the rigid ramp.
+		["fr2","frl2"],
+		["fr2","frr2"],
+		["fr2","frl0"],
+		["fr2","frr0"],
+		["fr2","fr0"],
+		["fr3","fr2"],
+		["fr3","frl3"],
+		["fr3","frr3"],
+		["fr3","frl2"],
+		["fr3","frr2"],
+		["fr3","fr0"],
+		["fr3","fr1"],
+
+		// The lip stays on the bow. The top edge is free to swing forward.
+		{"beamSpring":2000000,"beamDamp":150, "beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
 		{"breakGroup":"ramp"},
 		{"breakGroupType":1},
-		{"beamStrength":5000000},
-		["frrr","fhr4"],
-		["frrl","fhl4"],
-		["frrr2","fhr5"],
-		["frrl2","fhl5"],
-		["frrr2","fhr0"],
-		["frrl2","fhl0"],
-		
-		["frrr","fhr0"],
-		["frrl","fhl0"],
-		
-		["frrl","fhr0"],
-		["frrr","fhl0"],
-		
-		
-		
-		["frrr","fhl4"],
-		["frrl","fhr4"],
-		
-		["fr0","fh6"],
-		
-		["frr0","fhr4"],
 		["frl0","fhl4"],
+		["frl0","fhl5"],
+		["frl0","fh6"],
+		["frr0","fhr4"],
+		["frr0","fhr5"],
+		["frr0","fh6"],
+		["ral","fhl5"],
+		["ral","fhl9"],
+		["ral","fhl2"],
+		["ral","fhl4"],
+		["rar","fhr5"],
+		["rar","fhr9"],
+		["rar","fhr2"],
+		["rar","fhr4"],
     
    
        
@@ -174,20 +142,17 @@
 	
 	
 	"hydros": [
-	["id1:","id2:"],
-	//ramp
-			{"beamSpring":3000},
-			{"breakGroup":"ramp"},
-			{"beamStrength":"FLT_MAX"},
-	["frl2", "frrl2", {"inputSource":"ramp_lift","inLimit":-1,"outLimit":1.5,"inRate":1.5,"outRate":1.5,"inputFactor": 1.0}],
-	["frl2", "frrl", {"inputSource":"ramp_lift","inLimit":-1,"outLimit":1.5,"inRate":2,"outRate":2,"inputFactor": -1.0}],
-	
-	
-	["frr2", "frrr2",	{"inputSource":"ramp_lift","inLimit":-1.5,"outLimit":1.5,"inRate":1.5,"outRate":1.5,"inputFactor": 1.0}],
-	["frr2", "frrr",	{"inputSource":"ramp_lift","inLimit":-1.5,"outLimit":1.5,"inRate":2,"outRate":2,"inputFactor": -1.0}],
-
-			{"beamSpring":""},
-			{"beamStrength":""},
+		["id1:","id2:"],
+		// factor extends these onto the top edge. Input 1 lengthens them to 2.24x,
+		// which swings that edge forward and down. The lip stays on the hull.
+		// The spring yields if the plate meets the dock: a stiffer cylinder can
+		// lift the whole bow and the parked hull then hops.
+		{"beamPrecompression":1.0, "beamLongBound":3, "beamShortBound":0.5},
+		{"beamSpring":100000,"beamDamp":200,"beamDeform":"FLT_MAX","beamStrength":"FLT_MAX"},
+		{"breakGroup":"ramp"},
+		{"breakGroupType":1},
+		["ral", "frl2", {"inputSource":"ramp_lift","factor":1.237,"inRate":2,"outRate":2}],
+		["rar", "frr2", {"inputSource":"ramp_lift","factor":1.237,"inRate":2,"outRate":2}],
 	],
 	
 	
@@ -211,9 +176,5 @@
         ["frl2","frl0","frl3"],
         ["frl1","frl3","frl0"],
 	],
-    "quads":[
-        ["id1:","id2:","id3:","id4:"],
-        ["frrl","frrr","ff255b24-a227-44db-b70e-9266cc8929ba","e0e3f3ed-ed20-49ca-a2f8-a6fa66c71a4f"],
-    ],
 },
 }

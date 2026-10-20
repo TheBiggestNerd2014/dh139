@@ -2,7 +2,7 @@
 "ferry_cabin":{
   "information":{
     "authors":"JGB",
-    "name":"Ferry Cabin",
+    "name":"DH-142 Cabin",
     "value":10000,
   },
   "slotType":"ferry_cabin",
@@ -40,7 +40,7 @@
     {"selfCollision":true},
     {"group":"ferry_cabin"},
     {"nodeWeight":500},
-    {"dragCoef":300},
+    {"dragCoef":40},
 
     //LEFT
         ["fcl3", 5.7062, -10.6308, -0.0411],
